@@ -1,3 +1,5 @@
+[![Deploy GitHub Pages](https://github.com/<TUO-UTENTE>/<TUO-REPO>/actions/workflows/deploy.yml/badge.svg)](https://github.com/<TUO-UTENTE>/<TUO-REPO>/actions/workflows/deploy.yml)
+
 # Competenze del RUP e del DEC — Manuale Operativo Interattivo PA
 
 Sito web interattivo, documentale e formativo dedicato ai ruoli, responsabilità, adempimenti operativi e differenze tra **Responsabile Unico del Progetto (RUP)** e **Direttore dell'Esecuzione del Contratto (DEC)** ai sensi del **D.Lgs. 36/2023** (Codice dei Contratti Pubblici) e del Decreto Correttivo **D.Lgs. 209/2024**.
