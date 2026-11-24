@@ -1,4 +1,4 @@
-[![Deploy GitHub Pages](https://github.com/<TUO-UTENTE>/<TUO-REPO>/actions/workflows/deploy.yml/badge.svg)](https://github.com/<TUO-UTENTE>/<TUO-REPO>/actions/workflows/deploy.yml)
+[![Deploy GitHub Pages](https://github.com/<UO-TransizioneDigitaleComunePalermo>/<rup-dec>/actions/workflows/deploy.yml/badge.svg)](https://github.com/<UO-TransizioneDigitaleComunePalermo>/<rup-dec>/actions/workflows/deploy.yml)
 
 # Competenze del RUP e del DEC — Manuale Operativo Interattivo PA
 
