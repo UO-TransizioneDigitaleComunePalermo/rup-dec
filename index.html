@@ -1,0 +1,2310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="handbook">
+  <title>Competenze del RUP e del DEC — Manuale Operativo PA</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233f51b5'%3E%3Cpath d='M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f5f6fa;
+      --surface: #ffffff;
+      --surface-container-low: #f0f2f8;
+      --surface-container: #e4e7f0;
+      --surface-container-high: #d7dceb;
+      --on-surface: #141824;
+      --on-surface-variant: #4a5166;
+      --outline: #3f51b5;
+      --outline-variant: #cfd5e3;
+
+      --primary: #3f51b5;
+      --primary-dark: #2c387e;
+      --on-primary: #ffffff;
+      --primary-container: #e8eaf6;
+      --on-primary-container: #1a237e;
+      --secondary: #5c6bc0;
+      --tertiary: #283593;
+
+      --positive: #1b5e20;
+      --positive-bg: #e8f5e9;
+      --positive-border: #2e7d32;
+      --warning: #bf360c;
+      --warning-bg: #fff3e0;
+      --warning-border: #ef6c00;
+      --error: #b71c1c;
+      --error-bg: #ffebee;
+      --error-border: #d32f2f;
+      --info: #0d47a1;
+      --info-bg: #e3f2fd;
+      --info-border: #1976d2;
+
+      --data-1: #3f51b5;
+      --data-2: #00897b;
+      --data-3: #ef6c00;
+      --data-4: #6a1b9a;
+      --data-context: #b0b8c9;
+
+      --font-headline: 'Roboto', sans-serif;
+      --font-body: 'Roboto', sans-serif;
+      --font-label: 'Roboto Mono', monospace;
+
+      --rounded: 4px;
+      --rounded-lg: 4px;
+      --shadow-sm: 0 1px 3px rgba(20, 24, 36, 0.08), 0 1px 2px rgba(20, 24, 36, 0.06);
+      --shadow-md: 0 4px 12px rgba(20, 24, 36, 0.1), 0 2px 4px rgba(20, 24, 36, 0.06);
+      --focus: #ffdd00;
+      --header-tint: rgba(255, 255, 255, 0.14);
+      --header-tint-hover: rgba(255, 255, 255, 0.22);
+      --header-border: rgba(255, 255, 255, 0.28);
+      --header-placeholder: rgba(255, 255, 255, 0.78);
+      --scrim: rgba(16, 19, 26, 0.65);
+
+      --display-size: clamp(1.75rem, 1.35rem + 1.5vw, 2.35rem);
+      --headline-size: clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+      --body-size: clamp(0.97rem, 0.94rem + 0.15vw, 1.05rem);
+      --label-size: 0.75rem;
+
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --background: #10131a;
+      --surface: #181c26;
+      --surface-container-low: #202533;
+      --surface-container: #282e40;
+      --surface-container-high: #32394f;
+      --on-surface: #eceff7;
+      --on-surface-variant: #b3bad0;
+      --outline: #7986cb;
+      --outline-variant: #343c52;
+
+      --primary: #3f51b5;
+      --primary-dark: #283593;
+      --on-primary: #ffffff;
+      --primary-container: #232c5c;
+      --on-primary-container: #c5cae9;
+      --secondary: #9fa8da;
+      --tertiary: #8c9eff;
+
+      --positive: #81c784;
+      --positive-bg: #152b18;
+      --positive-border: #4caf50;
+      --warning: #ffb74d;
+      --warning-bg: #2e2010;
+      --warning-border: #ff9800;
+      --error: #ef9a9a;
+      --error-bg: #311518;
+      --error-border: #e57373;
+      --info: #90caf9;
+      --info-bg: #12243a;
+      --info-border: #42a5f5;
+
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+    }
+
+    /* App Bar */
+    .app-header {
+      position: sticky;
+      top: 0;
+      background-color: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-md);
+      border-bottom: 1px solid var(--primary-dark);
+      z-index: 40;
+    }
+    .app-header-inner {
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: var(--space-sm) var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .brand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: transparent;
+      border: 0;
+      color: var(--on-primary);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      cursor: pointer;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      text-align: left;
+    }
+    .brand-btn:hover { background-color: var(--header-tint); }
+
+    .search-box {
+      position: relative;
+      flex: 1 1 240px;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.45rem 2.2rem 0.45rem 2.2rem;
+      border-radius: var(--rounded);
+      border: 1px solid var(--header-border);
+      background: var(--header-tint);
+      color: var(--on-primary);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+    }
+    .search-input::placeholder { color: var(--header-placeholder); }
+    .search-input:focus { background: var(--header-tint-hover); }
+    .search-results-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-md);
+      max-height: 360px;
+      overflow-y: auto;
+      z-index: 60;
+      display: none;
+    }
+    .search-results-dropdown.open { display: block; }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+    .progress-pill {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: var(--header-tint);
+      padding: 0.3rem 0.65rem;
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+    }
+    .progress-track {
+      width: 84px;
+      height: 7px;
+      background: var(--header-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--positive-border);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      min-height: 38px;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--rounded);
+      border: 1px solid var(--header-border);
+      background: var(--header-tint);
+      color: var(--on-primary);
+      cursor: pointer;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+    .icon-btn:hover { background: var(--header-tint-hover); }
+
+    /* 3-Column Shell */
+    .app-shell {
+      max-width: 1520px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr) 250px;
+      gap: var(--space-lg);
+      padding: var(--space-lg) var(--space-md);
+      align-items: start;
+    }
+    .app-shell * { min-width: 0; }
+
+    .left-sidebar {
+      position: sticky;
+      top: 5rem;
+      max-height: calc(100vh - 6rem);
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-md);
+    }
+    .right-sidebar {
+      position: sticky;
+      top: 5rem;
+      max-height: calc(100vh - 6rem);
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-md);
+    }
+
+    .main-column {
+      max-width: 880px;
+      width: 100%;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-xl);
+      border-top: 5px solid var(--primary);
+    }
+
+    /* Typography & Content Elements */
+    .chapter-view { display: none; }
+    .chapter-view.active { display: block; }
+
+    .chapter-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--rounded);
+      margin-bottom: var(--space-sm);
+    }
+
+    h1.chapter-title {
+      font-family: var(--font-headline);
+      font-size: var(--display-size);
+      font-weight: 700;
+      line-height: 1.18;
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--on-surface);
+    }
+    .chapter-lede {
+      font-size: 1.075rem;
+      color: var(--on-surface-variant);
+      margin: 0 0 var(--space-lg) 0;
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    h2.sec-title {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 700;
+      line-height: 1.25;
+      margin: var(--space-xl) 0 var(--space-sm) 0;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--primary-container);
+      color: var(--on-surface);
+    }
+    h3.sub-title {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      line-height: 1.3;
+      margin: var(--space-lg) 0 var(--space-sm) 0;
+      color: var(--tertiary);
+    }
+
+    .mono { font-family: var(--font-label); }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin: var(--space-md) 0 var(--space-lg) 0;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      text-align: left;
+    }
+    table.data-table th {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.7rem 0.85rem;
+      border-bottom: 2px solid var(--outline-variant);
+    }
+    table.data-table td {
+      padding: 0.68rem 0.85rem;
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+    }
+    table.data-table tr:last-child td { border-bottom: 0; }
+    table.data-table tr:hover td { background: var(--surface-container-low); }
+
+    /* Admonitions */
+    .admonition {
+      border-left: 5px solid var(--info-border);
+      background: var(--info-bg);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--rounded);
+      margin: var(--space-md) 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .admonition-title {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.35rem;
+      color: var(--info);
+    }
+    .admonition.tip { border-left-color: var(--positive-border); background: var(--positive-bg); }
+    .admonition.tip .admonition-title { color: var(--positive); }
+    .admonition.warning { border-left-color: var(--warning-border); background: var(--warning-bg); }
+    .admonition.warning .admonition-title { color: var(--warning); }
+    .admonition.danger { border-left-color: var(--error-border); background: var(--error-bg); }
+    .admonition.danger .admonition-title { color: var(--error); }
+
+    /* Details / Summary */
+    details.exp-block {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      background: var(--surface-container-low);
+      margin: var(--space-md) 0;
+    }
+    details.exp-block summary {
+      cursor: pointer;
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    details.exp-block summary::-webkit-details-marker { display: none; }
+    details.exp-block[open] summary {
+      border-bottom: 1px solid var(--outline-variant);
+      background: var(--surface-container);
+    }
+    .exp-body { padding: var(--space-md); background: var(--surface); }
+
+    /* Tabs */
+    .tabs-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      border-bottom: 2px solid var(--outline-variant);
+      margin-top: var(--space-md);
+    }
+    .tab-btn {
+      padding: 0.55rem 0.95rem;
+      border: 0;
+      background: transparent;
+      color: var(--on-surface-variant);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border-radius: var(--rounded) var(--rounded) 0 0;
+      border-bottom: 3px solid transparent;
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      background: var(--primary-container);
+      border-bottom-color: var(--primary);
+      font-weight: 700;
+    }
+    [data-theme="dark"] .tab-btn.active { color: var(--tertiary); }
+    .tab-panel {
+      display: none;
+      padding: var(--space-md);
+      border: 1px solid var(--outline-variant);
+      border-top: 0;
+      border-radius: 0 0 var(--rounded) var(--rounded);
+      background: var(--surface-container-low);
+    }
+    .tab-panel.active { display: block; }
+
+    /* Navigation Tree & TOC */
+    .nav-chapter-btn {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.4rem;
+      text-align: left;
+      padding: 0.5rem 0.6rem;
+      border: 0;
+      background: transparent;
+      color: var(--on-surface);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      font-size: 0.86rem;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+    .nav-chapter-btn:hover { background: var(--surface-container-low); }
+    .nav-chapter-btn.active {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 700;
+    }
+    .nav-sub-list {
+      margin: 0.15rem 0 0.5rem 0.9rem;
+      padding-left: 0.65rem;
+      border-left: 2px solid var(--outline-variant);
+      display: none;
+    }
+    .nav-sub-list.open { display: block; }
+    .nav-sub-link {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      color: var(--on-surface-variant);
+      font-size: 0.79rem;
+      padding: 0.25rem 0.4rem;
+      border-radius: var(--rounded);
+      cursor: pointer;
+    }
+    .nav-sub-link:hover { color: var(--primary); background: var(--surface-container-low); }
+
+    .toc-link {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-left: 2px solid transparent;
+      padding: 0.3rem 0.55rem;
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      line-height: 1.35;
+    }
+    .toc-link.h3 { padding-left: 1.2rem; font-size: 0.77rem; }
+    .toc-link.active {
+      border-left-color: var(--primary);
+      color: var(--primary);
+      font-weight: 700;
+      background: var(--surface-container-low);
+    }
+    [data-theme="dark"] .toc-link.active { color: var(--tertiary); border-left-color: var(--tertiary); }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: var(--on-primary);
+      border: 0;
+      padding: 0.55rem 1.05rem;
+      border-radius: var(--rounded);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-dark); }
+    .btn-primary:disabled, .btn-secondary:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      padding: 0.55rem 1.05rem;
+      border-radius: var(--rounded);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn-secondary:hover { background: var(--surface-container); }
+
+    .read-toggle-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+    }
+    .read-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--rounded);
+      border: 1px solid var(--outline-variant);
+      background: var(--surface);
+      color: var(--on-surface);
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .read-btn.active-read {
+      background: var(--positive-bg);
+      color: var(--positive);
+      border-color: var(--positive-border);
+      font-weight: 700;
+    }
+    .read-btn.active-unread {
+      background: var(--warning-bg);
+      color: var(--warning);
+      border-color: var(--warning-border);
+      font-weight: 700;
+    }
+
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+      gap: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+    .chapter-card {
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      cursor: pointer;
+      text-align: left;
+      transition: transform var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .chapter-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    /* Interactive Tools */
+    .tool-panel {
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .field-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--on-surface);
+    }
+    .field-control {
+      width: 100%;
+      padding: 0.5rem 0.65rem;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      background: var(--surface);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+    }
+
+    /* Quiz */
+    .quiz-card {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      background: var(--surface-container-low);
+    }
+    .quiz-opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      width: 100%;
+      text-align: left;
+      padding: 0.55rem 0.75rem;
+      margin-top: 0.4rem;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      background: var(--surface);
+      color: var(--on-surface);
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .quiz-opt:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-container); }
+    .quiz-opt.correct { background: var(--positive-bg); border-color: var(--positive-border); color: var(--positive); font-weight: 700; }
+    .quiz-opt.wrong { background: var(--error-bg); border-color: var(--error-border); color: var(--error); }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: var(--scrim);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-md);
+      z-index: 80;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-dialog {
+      background: var(--surface);
+      color: var(--on-surface);
+      border-radius: 10px;
+      max-width: 780px;
+      width: 100%;
+      max-height: 84vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--outline-variant);
+    }
+    .modal-body {
+      padding: var(--space-lg);
+      overflow-y: auto;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    /* Footer */
+    .app-footer {
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-md) var(--space-xl);
+      border-top: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant);
+      font-size: 0.85rem;
+    }
+
+    /* Focus */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Mobile Drawer & Breakpoints */
+    .mobile-only { display: none; }
+    @media (max-width: 1120px) {
+      .app-shell { grid-template-columns: 260px minmax(0, 1fr); }
+      .right-sidebar { display: none; }
+    }
+    @media (max-width: 820px) {
+      .mobile-only { display: inline-flex; }
+      .app-shell { grid-template-columns: 1fr; padding: var(--space-md) var(--space-sm); }
+      .left-sidebar {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        bottom: 0;
+        width: 85%;
+        max-width: 320px;
+        z-index: 70;
+        max-height: calc(100vh - 64px);
+      }
+      .left-sidebar.mobile-open { display: block; }
+      .main-column { padding: var(--space-md); }
+    }
+    @media (max-width: 640px) {
+      .app-header-inner { padding: var(--space-xs) var(--space-sm); }
+      .search-box { order: 3; flex-basis: 100%; max-width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- TOP APP BAR -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <button type="button" class="icon-btn mobile-only" id="btn-mobile-menu" onclick="toggleMobileSidebar()" aria-label="Apri menu di navigazione">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+      </button>
+      <button type="button" class="brand-btn" onclick="goToChapter(1)">
+        <span class="material-symbols-outlined" aria-hidden="true">menu_book</span>
+        <span>Competenze del RUP e del DEC</span>
+      </button>
+
+      <div class="search-box">
+        <span class="material-symbols-outlined" aria-hidden="true" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:18px;opacity:0.85;">search</span>
+        <input type="search" id="global-search" class="search-input" placeholder="Cerca norme, articoli, concetti…" aria-label="Cerca nel manuale" oninput="handleSearch(this.value)">
+        <div id="search-results" class="search-results-dropdown" role="listbox" aria-label="Risultati ricerca"></div>
+      </div>
+
+      <div class="header-meta">
+        <div class="progress-pill" title="Tempo di studio stimato">
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;">schedule</span>
+          <span>Tempo stimato: 3h 00m</span>
+        </div>
+        <div class="progress-pill" title="Avanzamento lettura capitoli">
+          <span id="progress-label">0% letto (0/11)</span>
+          <div class="progress-track" aria-hidden="true"><div id="progress-bar" class="progress-fill"></div></div>
+        </div>
+        <button type="button" class="icon-btn" id="btn-theme-toggle" onclick="toggleTheme()" aria-label="Cambia tema chiaro o scuro">
+          <span class="material-symbols-outlined" id="theme-icon" aria-hidden="true" style="font-size:18px;">dark_mode</span>
+          <span id="theme-text">Scuro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3-COLUMN LAYOUT -->
+  <div class="app-shell">
+    <!-- LEFT SIDEBAR: Multi-level Navigation Tree -->
+    <aside class="left-sidebar" id="left-sidebar" aria-label="Indice dei capitoli">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--outline-variant);">
+        <span class="mono" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--on-surface-variant);">Manuale Operativo PA</span>
+        <button type="button" class="mobile-only btn-secondary" style="padding:0.2rem 0.5rem;font-size:0.75rem;" onclick="toggleMobileSidebar()">Chiudi</button>
+      </div>
+      <nav id="left-nav-tree"></nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-column" id="main-content" tabindex="-1">
+
+      <!-- CAPITOLO 1 -->
+      <article class="chapter-view active" id="ch-1" data-chapter="1" data-title="1. Home Page & Quadro Generale dei Principi" data-minutes="30">
+        <div class="chapter-kicker"><span>Capitolo 1</span><span>•</span><span>30 min di studio</span></div>
+        <h1 class="chapter-title">Quadro Generale e Principi del Codice dei Contratti Pubblici</h1>
+        <p class="chapter-lede">Guida operativa per i funzionari dei Comuni italiani sul ciclo di vita dei contratti pubblici ai sensi del D.Lgs. 36/2023, integrato dal Correttivo D.Lgs. 209/2024, dalla Legge 7 gennaio 2026 n. 1, dai pareri MIT e dalle deliberazioni ANAC.</p>
+
+        <div class="admonition">
+          <div class="admonition-title"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">info</span>Metadati Istituzionali e Licenza</div>
+          <p style="margin:0;">Manuale realizzato tramite <strong>IA Google Notebook</strong> su prompt di <strong>Ciro Spataro</strong> — Data di pubblicazione: <strong>24 Novembre 2026</strong> — Licenza d’uso: <strong>Creative Commons CC BY-SA</strong> (Attribuzione - Condividi allo stesso modo). Tutti i contenuti sono ancorati alle fonti normative e giurisprudenziali vigenti.</p>
+        </div>
+
+        <h2 class="sec-title" id="ch1-ciclo">1.1 Il ciclo di vita digitale dei contratti pubblici</h2>
+        <p>Il D.Lgs. 31 marzo 2023, n. 36 supera la logica frammentata della mera «procedura di gara» e riconfigura l’appalto pubblico come un <strong>intervento unitario articolato in quattro fasi interdipendenti</strong>: programmazione, progettazione, affidamento ed esecuzione. Al centro di questo ecosistema opera il <strong>Responsabile Unico del Progetto (RUP)</strong>, coadiuvato nella fase esecutiva dei servizi e delle forniture dal <strong>Direttore dell’Esecuzione del Contratto (DEC)</strong> e nei lavori dal Direttore dei Lavori (DL).</p>
+        <p>L’intera sequenza si sviluppa oggi in modalità nativa digitale (Parte II del Libro I, artt. 19–36): le stazioni appaltanti operano tramite piattaforme di approvvigionamento digitale certificate interoperabili con la Banca Dati Nazionale dei Contratti Pubblici (BDNCP) dell’ANAC e con il Fascicolo Virtuale dell’Operatore Economico (FVOE).</p>
+
+        <!-- SVG Infografica Ciclo di Vita -->
+        <div class="tool-panel" style="padding:1rem;">
+          <div class="mono" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--on-surface-variant);margin-bottom:0.5rem;">Schema Concettuale — Ciclo di Vita & Governance RUP / DEC</div>
+          <svg viewBox="0 0 800 185" width="100%" role="img" aria-label="Diagramma del ciclo di vita del contratto pubblico in quattro fasi">
+            <rect x="10" y="20" width="175" height="90" rx="4" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"/>
+            <text x="97" y="48" text-anchor="middle" fill="var(--on-primary-container)" font-weight="700" font-size="13">1. PROGRAMMAZIONE</text>
+            <text x="97" y="68" text-anchor="middle" fill="var(--on-surface)" font-size="11">Art. 37 • Fabbisogni</text>
+            <text x="97" y="85" text-anchor="middle" fill="var(--on-surface-variant)" font-size="10">Nomina RUP (Art. 15 c.1)</text>
+            <polygon points="190,65 204,58 204,72" fill="var(--primary)" transform="rotate(180 197 65)"/>
+
+            <rect x="210" y="20" width="175" height="90" rx="4" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"/>
+            <text x="297" y="48" text-anchor="middle" fill="var(--on-primary-container)" font-weight="700" font-size="13">2. PROGETTAZIONE</text>
+            <text x="297" y="68" text-anchor="middle" fill="var(--on-surface)" font-size="11">PFTE / Esecutivo / BIM</text>
+            <text x="297" y="85" text-anchor="middle" fill="var(--on-surface-variant)" font-size="10">Verifica & Validazione</text>
+            <polygon points="390,65 404,58 404,72" fill="var(--primary)" transform="rotate(180 397 65)"/>
+
+            <rect x="410" y="20" width="175" height="90" rx="4" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2"/>
+            <text x="497" y="48" text-anchor="middle" fill="var(--on-primary-container)" font-weight="700" font-size="13">3. AFFIDAMENTO</text>
+            <text x="497" y="68" text-anchor="middle" fill="var(--on-surface)" font-size="11">BDNCP • CIG • FVOE</text>
+            <text x="497" y="85" text-anchor="middle" fill="var(--on-surface-variant)" font-size="10">Determina / Aggiudicazione</text>
+            <polygon points="590,65 604,58 604,72" fill="var(--primary)" transform="rotate(180 597 65)"/>
+
+            <rect x="610" y="20" width="180" height="90" rx="4" fill="var(--positive-bg)" stroke="var(--positive-border)" stroke-width="2"/>
+            <text x="700" y="48" text-anchor="middle" fill="var(--positive)" font-weight="700" font-size="13">4. ESECUZIONE</text>
+            <text x="700" y="68" text-anchor="middle" fill="var(--on-surface)" font-size="11">RUP + DEC / DL</text>
+            <text x="700" y="85" text-anchor="middle" fill="var(--on-surface-variant)" font-size="10">Controllo • SAL • Collaudo</text>
+
+            <rect x="10" y="130" width="780" height="40" rx="4" fill="var(--surface-container)" stroke="var(--outline-variant)"/>
+            <text x="400" y="154" text-anchor="middle" fill="var(--on-surface)" font-weight="700" font-size="12">REGIA UNICA DEL RUP (Supervisione, indirizzo e coordinamento) + Ecosistema Digitale ANAC</text>
+          </svg>
+        </div>
+
+        <h2 class="sec-title" id="ch1-principi">1.2 I Principi Generali (Artt. 1–5 D.Lgs. 36/2023)</h2>
+        <p>I primi articoli del Codice non hanno valore meramente programmatico: costituiscono <strong>criteri interpretativi e applicativi vincolanti</strong> per risolvere i casi concreti e guidare l’esercizio della discrezionalità amministrativa del RUP e del DEC.</p>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Principio</th>
+                <th>Riferimento</th>
+                <th>Impatto operativo per RUP e DEC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Principio del risultato</strong></td>
+                <td class="mono">Art. 1</td>
+                <td>Tempestività dell’affidamento ed esecuzione con il miglior rapporto qualità/prezzo, nel rispetto di legalità, trasparenza e concorrenza. È criterio per valutare la responsabilità del personale e attribuire gli incentivi ex art. 45.</td>
+              </tr>
+              <tr>
+                <td><strong>Principio della fiducia</strong></td>
+                <td class="mono">Art. 2</td>
+                <td>Valorizza l’autonomia decisionale e l’iniziativa dei funzionari pubblici contro la «burocrazia difensiva». Perimetra la colpa grave alla violazione manifesta di norme, auto-vincoli e regole palesi di prudenza, escludendola in caso di adesione a pareri autorevoli o giurisprudenza prevalente.</td>
+              </tr>
+              <tr>
+                <td><strong>Accesso al mercato</strong></td>
+                <td class="mono">Art. 3</td>
+                <td>Favorisce la partecipazione degli operatori economici nel rispetto dei principi di concorrenza, imparzialità, non discriminazione, pubblicità, trasparenza e proporzionalità (incluse PMI e contratti riservati).</td>
+              </tr>
+              <tr>
+                <td><strong>Buona fede e tutela dell’affidamento</strong></td>
+                <td class="mono">Art. 5</td>
+                <td>Impone a stazione appaltante e operatori economici comportamenti leali in tutte le fasi, dalla preparazione della gara fino al collaudo e alla gestione delle riserve o della rinegoziazione.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="sec-title" id="ch1-mappa">1.3 Mappa rapida dei capitoli del Manuale</h2>
+        <p>Seleziona uno qualsiasi dei capitoli operativi per avviare il percorso di studio o consultare direttamente la sezione di interesse.</p>
+        <div class="card-grid" id="home-chapter-cards"></div>
+      </article>
+
+      <!-- CAPITOLO 2 -->
+      <article class="chapter-view" id="ch-2" data-chapter="2" data-title="2. Requisiti, Competenze e Nomina di RUP e DEC" data-minutes="40">
+        <div class="chapter-kicker"><span>Capitolo 2</span><span>•</span><span>40 min di studio</span></div>
+        <h1 class="chapter-title">Requisiti, Competenze e Nomina di RUP e DEC</h1>
+        <p class="chapter-lede">Analisi dettagliata dell’art. 15 e dell’Allegato I.2 per il Responsabile Unico del Progetto, nonché dell’art. 114 e dell’Allegato II.14 (artt. 31–32) per il Direttore dell’Esecuzione del Contratto, alla luce del Correttivo D.Lgs. 209/2024 e dei pareri MIT/ANAC.</p>
+
+        <h2 class="sec-title" id="ch2-rup">2.1 Il RUP: Art. 15 e Allegato I.2 post-Correttivo 2024</h2>
+        <p>Il RUP non è più un responsabile di singolo procedimento amministrativo (L. 241/1990), bensì il <strong>Responsabile Unico del Progetto</strong> chiamato a garantire la realizzazione dell’intervento pubblico nei tempi e negli obiettivi prefissati (art. 15, c. 1 e 5). La nomina avviene già nel <strong>primo atto di avvio dell’intervento pubblico</strong>.</p>
+        <ul>
+          <li><strong>Platea dei soggetti nominabili (Correttivo Art. 4 e Art. 75):</strong> Il RUP è individuato tra i dipendenti, anche a tempo determinato, preferibilmente dell’unità organizzativa titolare del potere di spesa. Il D.Lgs. 209/2024 ha soppresso il vincolo «di ruolo» nell’art. 2 dell’Allegato I.2 e ha inserito espressamente all’art. 15, c. 2 la facoltà, <em>in caso di accertata carenza nell’organico di personale in possesso dei requisiti</em>, di nominare il RUP tra i <strong>dipendenti di altre amministrazioni pubbliche</strong>.</li>
+          <li><strong>Obbligatorietà e meccanismo di chiusura:</strong> L’ufficio di RUP è obbligatorio e non può essere rifiutato. Se manca la nomina nell’atto di avvio, l’incarico ricade automaticamente sul responsabile dell’unità organizzativa competente per l’intervento.</li>
+          <li><strong>Modello organizzativo per fasi (Art. 15, c. 4):</strong> Ferma l’unicità del RUP, l’ente può nominare un <em>Responsabile per le fasi di programmazione, progettazione ed esecuzione</em> e un <em>Responsabile per la fase di affidamento</em>. Il Correttivo consente inoltre al RUP di delegare al personale dell’ente o della CUC mere operazioni esecutive nel ciclo digitale (es. caricamento dati su piattaforme e ANAC), esclusa ogni attività di verifica e valutazione.</li>
+        </ul>
+
+        <div class="admonition warning">
+          <div class="admonition-title"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">warning</span>Nomina cumulativa annuale vs nomina per intervento</div>
+          <p style="margin:0;">Secondo il <strong>Parere MIT n. 2540 del 21/06/2024</strong>, non è legittimo nominare un «RUP unico annuale» indistinto per tutti gli affidamenti sottosoglia di un settore: occorre sempre individuare il RUP per ciascun procedimento/intervento (pur potendo lo stesso soggetto ricoprire l’incarico per più interventi distinti). Negli enti medio-grandi è buona prassi evitare la concentrazione su un solo dipendente.</p>
+        </div>
+
+        <h2 class="sec-title" id="ch2-requisiti">2.2 Titoli di studio ed esperienza professionale (Artt. 4 e 5 All. I.2)</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Ambito Contrattuale</th>
+                <th>Fascia di Importo</th>
+                <th>Titolo / Qualifica</th>
+                <th>Esperienza Analoga Minima</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Lavori e SIA</strong><br>(Art. 4 All. I.2)</td>
+                <td class="mono">&lt; 1.000.000 €</td>
+                <td>Tecnico abilitato all’esercizio della professione (o tecnico anche non dirigente se abilitazione non prevista)</td>
+                <td><strong>Almeno 1 anno</strong> (5 anni se privo di abilitazione professionale)</td>
+              </tr>
+              <tr>
+                <td><strong>Lavori e SIA</strong><br>(Art. 4 All. I.2)</td>
+                <td class="mono">≥ 1.000.000 € e &lt; Soglia UE</td>
+                <td>Tecnico abilitato (ingegnere, architetto, geometra/perito nei limiti di competenza)</td>
+                <td><strong>Almeno 3 anni</strong> (5 anni se senza abilitazione)</td>
+              </tr>
+              <tr>
+                <td><strong>Lavori e SIA</strong><br>(Art. 4 All. I.2)</td>
+                <td class="mono">≥ Soglia UE (5.538.000 €)</td>
+                <td>Tecnico abilitato con formazione aggiornata ex art. 15 c. 7</td>
+                <td><strong>Almeno 5 anni</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Servizi e Forniture</strong><br>(Art. 5 All. I.2)</td>
+                <td class="mono">&lt; Soglia UE</td>
+                <td>Titolo di studio adeguato alla natura dell’appalto</td>
+                <td><strong>Almeno 1 anno</strong> (attestata anche da anzianità di servizio)</td>
+              </tr>
+              <tr>
+                <td><strong>Servizi e Forniture</strong><br>(Art. 5 All. I.2)</td>
+                <td class="mono">≥ Soglia UE</td>
+                <td>Titolo adeguato; possibile richiesta laurea magistrale per dispositivi medici, antincendio, sistemi IT/telematici</td>
+                <td><strong>Almeno 3 anni</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>Carenza di requisiti (Art. 2, c. 3 All. I.2):</strong> Se per lavori/SIA manca una figura tecnica, le competenze sono attribuite al dirigente o responsabile del servizio. Negli altri casi, se viene nominato un RUP carente di requisiti, la stazione appaltante <em>deve</em> affidare le attività di supporto ad altri dipendenti idonei o, in mancanza, a soggetti esterni muniti di assicurazione RC professionale.</p>
+
+        <h2 class="sec-title" id="ch2-conflitto">2.3 Incompatibilità e Conflitto di Interessi (Art. 16 e Art. 35-bis D.Lgs. 165/2001)</h2>
+        <p>Non possono assumere le funzioni di RUP i soggetti condannati, anche con sentenza non passata in giudicato, per i reati contro la PA (Capo I, Titolo II, Libro II c.p.). Quanto al conflitto di interessi (Art. 16), a seguito della modifica introdotta dal D.L. 132/2023 (conv. L. 170/2023) che ha soppresso le parole «concreta ed effettiva», sussiste conflitto ogniqualvolta qualsiasi soggetto con compiti funzionali nella gara o nell’esecuzione abbia un interesse finanziario, economico o personale che <strong>possa essere percepito come una minaccia alla sua imparzialità e indipendenza</strong>. Obbligo immediato di dichiarazione e astensione.</p>
+
+        <h2 class="sec-title" id="ch2-dec">2.4 Coincidenza o Distinzione tra RUP e DEC</h2>
+        <p>Di regola, negli appalti di servizi e forniture il RUP svolge anche le funzioni di DEC (Art. 114, c. 7 e Art. 8, c. 3 All. I.2). Tuttavia, il coordinato disposto tra l’<strong>art. 8, c. 4 dell’Allegato I.2</strong> e gli <strong>artt. 31 e 32 dell’Allegato II.14</strong> (chiarito dal <strong>Parere MIT n. 2627/2024</strong> e dai pareri ANAC su strumentazione scientifica) impone la nomina di un <strong>DEC soggetto diverso dal RUP</strong> nei seguenti casi alternativi:</p>
+        <ul>
+          <li><strong>Forniture e Servizi &gt; 500.000 €</strong> (prestazioni di «particolare importanza» per importo ex art. 32, c. 2 e 3 All. II.14);</li>
+          <li><strong>Forniture e Servizi &gt; Soglia comunitaria</strong> (anche se inferiori a 500.000 €, in forza dell’art. 8, c. 4, lett. a) All. I.2);</li>
+          <li><strong>Qualsiasi importo (anche sottosoglia)</strong> qualora ricorrano ragioni qualitative/organizzative ex art. 8, c. 4 lett. b)–e) All. I.2 o art. 32 c. 2 All. II.14: elevata complessità tecnologica, pluralità di competenze, processi innovativi, coinvolgimento di unità organizzativa diversa da quella dell’affidamento, oppure servizi elencati in via di prima applicazione (telecomunicazioni, servizi bancari/assicurativi, servizi informatici, contabilità/revisione, consulenza gestionale, pulizia edifici e gestione immobiliare, servizi sociali/sanitari/ristorazione).</li>
+        </ul>
+
+        <!-- TOOL INTERATTIVO CAP 2 -->
+        <div class="tool-panel" id="tool-dec-checker">
+          <div class="mono" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--primary);margin-bottom:0.35rem;">Strumento Interattivo • Simulatore Nomina RUP e Obbligo DEC</div>
+          <h3 style="margin:0 0 0.75rem 0;font-size:1.1rem;">Verifica i requisiti del RUP e se il DEC deve essere distinto</h3>
+          <div class="form-grid">
+            <div>
+              <label class="field-label" for="chk-tipo">Tipologia di contratto</label>
+              <select id="chk-tipo" class="field-control" onchange="runDecChecker()">
+                <option value="servizi">Servizi</option>
+                <option value="forniture">Forniture</option>
+                <option value="lavori">Lavori / Servizi Ingegneria e Architettura</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label" for="chk-importo">Importo a base d'asta (€ IVA escl.)</label>
+              <input type="number" id="chk-importo" class="field-control" value="250000" min="0" step="1000" oninput="runDecChecker()">
+            </div>
+            <div>
+              <label class="field-label" for="chk-complessita">Complessità / Settore critico (Art. 32 All. II.14)</label>
+              <select id="chk-complessita" class="field-control" onchange="runDecChecker()">
+                <option value="no">Ordinaria (nessuna complessità specifica)</option>
+                <option value="si">Sì (IT, pulizia, ristorazione, sociale, altra UO, alta tecnologia)</option>
+              </select>
+            </div>
+          </div>
+          <div id="chk-output" class="admonition" style="margin-top:1rem;margin-bottom:0;"></div>
+        </div>
+      </article>
+
+      <!-- CAPITOLO 3 -->
+      <article class="chapter-view" id="ch-3" data-chapter="3" data-title="3. Compiti Trasversali del RUP in Tutte le Fasi" data-minutes="35">
+        <div class="chapter-kicker"><span>Capitolo 3</span><span>•</span><span>35 min di studio</span></div>
+        <h1 class="chapter-title">Compiti Trasversali del RUP in Tutte le Fasi</h1>
+        <p class="chapter-lede">Programmazione triennale, verifica e validazione progettuale, gestione informativa digitale (BIM), acquisizione CIG sulla BDNCP, FVOE e qualificazione delle stazioni appaltanti.</p>
+
+        <h2 class="sec-title" id="ch3-prog">3.1 Programmazione triennale e gestione variazioni</h2>
+        <p>Il RUP coordina la predisposizione dei programmi triennali dei lavori pubblici (soglia di inserimento pari a 150.000 €) e degli acquisti di beni e servizi (soglia pari a 140.000 €) ai sensi dell’art. 37 e dell’Allegato I.5. Particolare attenzione va posta alle <strong>opere pubbliche incompiute</strong>, che vanno obbligatoriamente censite nella <em>Scheda B</em> a prescindere dall’importo indicando risorse per il completamento o soluzioni alternative (riutilizzo ridimensionato, cessione, vendita o demolizione).</p>
+        <p>Per gli enti locali, in pendenza di approvazione dell’aggiornamento annuale del programma, è possibile autorizzare motivatamente l’avvio di procedure già previste nel programma vigente; le variazioni in corso d’anno richiedono approvazione dell’organo competente (Consiglio/Giunta secondo riparto ordinamentale).</p>
+
+        <h2 class="sec-title" id="ch3-prog-bim">3.2 Progettazione, BIM (Art. 43) e Verifica/Validazione (All. I.7)</h2>
+        <p>Il Codice riduce i livelli progettuali dei lavori a due soli livelli: <strong>Progetto di Fattibilità Tecnico-Economica (PFTE)</strong> e <strong>Progetto Esecutivo</strong> (di regola affidato allo stesso progettista del PFTE). Il RUP attiva le conferenze di servizi, coordina la verifica preventiva dell’interesse archeologico (All. I.8) e presiede alla <strong>verifica</strong> e alla <strong>validazione</strong> formale del progetto prima della gara.</p>
+        <div class="admonition tip">
+          <div class="admonition-title"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">tips_and_updates</span>Obbligo BIM dal 1° Gennaio 2025 e Linee Guida MIT 23.02.2026</div>
+          <p style="margin:0;">A seguito del Correttivo D.Lgs. 209/2024 (art. 43), l’adozione di metodi e strumenti di gestione informativa digitale (BIM) è obbligatoria dal <strong>1° gennaio 2025</strong> per nuove costruzioni e interventi su esistenti di importo presunto <strong>superiore a 2 milioni di euro</strong> (o sopra la soglia UE per beni culturali ex art. 10 c. 1 D.Lgs. 42/2004), escluse le manutenzioni ordinarie e straordinarie su opere non nate in BIM. Le stazioni appaltanti devono adottare il proprio Ambiente di Condivisione Dati (ACDat/CDE) in formati aperti (IFC) e nominare i ruoli organizzativi (CDE Manager, Gestore/Coordinatore informativo), fermo restando che RUP, DL e collaudatori conservano la piena titolarità decisionale (LG MIT 23.02.2026).</p>
+        </div>
+
+        <h2 class="sec-title" id="ch3-dig">3.3 Digitalizzazione, CIG, BDNCP, FVOE e Qualificazione SA</h2>
+        <p>Con la piena operatività dell’ecosistema nazionale di e-procurement dal 2024–2026, il RUP e i delegati operativi devono presidiare l’interoperabilità:</p>
+        <ul>
+          <li><strong>CIG e Orchestratore ANAC:</strong> Il Codice Identificativo Gara (CIG) non si richiede più sul vecchio Simog, ma direttamente attraverso le <strong>piattaforme di approvvigionamento digitale certificate</strong> (Art. 25), che dialogano in tempo reale con la Piattaforma Contratti Pubblici (PCP) e la BDNCP tramite Orchestratore ANAC.</li>
+          <li><strong>FVOE 2.0:</strong> La verifica dei requisiti generali (artt. 94–95) e speciali (art. 100) avviene tramite il Fascicolo Virtuale dell’Operatore Economico presso ANAC, con accesso interoperabile alle banche dati (Casellario, Agenzia Entrate, INPS/INAIL, Registro Imprese).</li>
+          <li><strong>Trasparenza (Art. 28):</strong> La trasmissione dei dati alla BDNCP assolve gran parte degli obblighi di pubblicazione; resta necessario garantire il collegamento ipertestuale in Amministrazione Trasparente e pubblicare gli atti non veicolati automaticamente dalla banca dati.</li>
+        </ul>
+
+        <h3 class="sub-title" id="ch3-qual">Qualificazione delle Stazioni Appaltanti (Artt. 62–63 e All. II.4)</h3>
+        <p>Le stazioni appaltanti non qualificate possono gestire autonomamente solo procedure fino a <strong>500.000 € per lavori</strong> e fino a <strong>140.000 € per servizi e forniture</strong> (oltre agli affidamenti diretti sottosoglia). Oltre tali importi occorre la qualificazione ANAC (livelli L1–L3 per lavori; SF1–SF3 per servizi/forniture) oppure il ricorso a CUC/SA qualificate. Dal <strong>1° gennaio 2025</strong> (Correttivo All. II.4, art. 8), chi è qualificato per progettazione/affidamento è qualificato di diritto anche per l’esecuzione nei corrispondenti livelli; per contratti superiori si applicano i requisiti delle nuove <em>Tabelle C-bis e C-ter</em> (formazione personale esecutivo e adempimento comunicazioni BDAP/ANAC). Per concessioni e PPP ≥ 500.000 € (lavori) o ≥ 140.000 € (servizi) è richiesto almeno il livello L2/SF2 con esperto PEF triennale.</p>
+
+        <details class="exp-block">
+          <summary><span>Checklist operativa del RUP — Avvio intervento e Fascicolo Digitale</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <div class="exp-body">
+            <ul style="margin:0;padding-left:1.2rem;">
+              <li>Verifica inserimento nel Programma Triennale (lavori ≥ 150.000 €; beni/servizi ≥ 140.000 €) e acquisizione CUP ove previsto.</li>
+              <li>Atto formale di nomina RUP (ed eventuali Responsabili di fase ex art. 15 c. 4) con dichiarazione di assenza di conflitto di interessi (Art. 16) e condanne (Art. 35-bis D.Lgs. 165/2001).</li>
+              <li>Verifica qualificazione SA o convenzione CUC e nomina/verifica dei requisiti del DEC o DL.</li>
+              <li>Acquisizione CIG tramite piattaforma di approvvigionamento certificata interoperabile con BDNCP/PCP ANAC e attivazione FVOE 2.0.</li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- CAPITOLO 4 -->
+      <article class="chapter-view" id="ch-4" data-chapter="4" data-title="4. Adempimenti nelle Procedure Sotto-Soglia e Sopra-Soglia" data-minutes="40">
+        <div class="chapter-kicker"><span>Capitolo 4</span><span>•</span><span>40 min di studio</span></div>
+        <h1 class="chapter-title">Adempimenti nelle Procedure Sotto-Soglia e Sopra-Soglia</h1>
+        <p class="chapter-lede">Soglie comunitarie, affidamenti diretti, principio di rotazione, procedure negoziate, verifica delle anomalie, illecito professionale, imposta di bollo e determina di affidamento.</p>
+
+        <h2 class="sec-title" id="ch4-soglie">4.1 Soglie di rilevanza europea e fascia sottosoglia (Artt. 14 e 50)</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Tipologia Appalto</th>
+                <th>Fascia Affidamento Diretto (Art. 50)</th>
+                <th>Procedura Negoziata senza Bando (Art. 50)</th>
+                <th>Soglia Europea (Art. 14)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Lavori</strong> (Settori Ordinari)</td>
+                <td class="mono">&lt; 150.000 €</td>
+                <td>5 inviti (<span class="mono">150k – &lt;1M €</span>)<br>10 inviti (<span class="mono">1M – &lt;5,538M €</span>)</td>
+                <td class="mono">5.538.000 €</td>
+              </tr>
+              <tr>
+                <td><strong>Servizi e Forniture</strong> (Enti Locali / Sub-centrali)</td>
+                <td class="mono">&lt; 140.000 € (inclusi SIA)</td>
+                <td>Almeno 5 inviti (<span class="mono">140k – &lt;Soglia UE</span>)</td>
+                <td class="mono">221.000 € (143.000 € Stato)</td>
+              </tr>
+              <tr>
+                <td><strong>Servizi Sociali / Allegato XIV</strong></td>
+                <td class="mono">&lt; 140.000 €</td>
+                <td>Almeno 5 inviti (<span class="mono">140k – &lt;750.000 €</span>)</td>
+                <td class="mono">750.000 € (1.000.000 € speciali)</td>
+              </tr>
+              <tr>
+                <td><strong>Settori Speciali</strong></td>
+                <td colspan="2">Disciplina Parte II settori speciali / regolamenti interni</td>
+                <td class="mono">5.538.000 € lav. / 443.000 € ser./forn.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="sec-title" id="ch4-affidamento">4.2 Affidamento diretto, rotazione, divieto di frazionamento e garanzie</h2>
+        <p>Nell’<strong>affidamento diretto</strong> (lavori &lt; 150.000 €; servizi e forniture &lt; 140.000 €), il RUP può procedere anche senza consultazione di più operatori economici, assicurando che siano scelti soggetti in possesso di documentate esperienze pregresse idonee all’esecuzione. Nella prassi comunale, l’acquisizione informale di più preventivi (o una richiesta di preventivi su MePA/piattaforma certificata) non trasforma l’affidamento diretto in gara, ma rafforza la motivazione sulla congruità del prezzo.</p>
+
+        <div class="tabs-bar" role="tablist">
+          <button type="button" class="tab-btn active" onclick="switchTab(this, 'tab4-rotazione')">Rotazione (Art. 49)</button>
+          <button type="button" class="tab-btn" onclick="switchTab(this, 'tab4-negoziata')">Negoziate & Sorteggio (Art. 50)</button>
+          <button type="button" class="tab-btn" onclick="switchTab(this, 'tab4-garanzie')">Garanzie & Bollo (Art. 53 / All. I.4)</button>
+        </div>
+        <div id="tab4-rotazione" class="tab-panel active">
+          <p><strong>Principio di rotazione (Art. 49):</strong> È vietato l’affidamento o l’aggiudicazione al contraente uscente nei casi di due consecutivi affidamenti nello stesso settore merceologico/categoria di opere/servizi e nella medesima fascia di valore economico. <strong>Novità Correttivo 209/2024 (c. 4):</strong> Il contraente uscente può essere reinvitato o affidatario diretto in casi motivati in riferimento alla struttura del mercato e all’effettiva assenza di alternative, <em>previa verifica dell’accurata esecuzione del precedente contratto nonché della qualità della prestazione resa</em>. È sempre ammessa deroga per affidamenti diretti <strong>inferiori a 5.000 €</strong>, oppure quando l’indagine di mercato aperta non pone limiti al numero di operatori da invitare.</p>
+        </div>
+        <div id="tab4-negoziata" class="tab-panel">
+          <p><strong>Procedure negoziate (Art. 50):</strong> Divieto assoluto di utilizzare il sorteggio o estrazioni casuali per selezionare gli operatori da invitare, salvo situazioni eccezionali e specificamente motivate in cui nessun altro criterio oggettivo sia praticabile. Il <strong>Correttivo (comma 2-bis)</strong> impone alle stazioni appaltanti di <strong>pubblicare sul proprio sito istituzionale l’avvio di una consultazione</strong> per le procedure negoziate, oltre ai nominativi degli operatori consultati a valle dell’indagine. Attenzione al <strong>divieto di frazionamento artificioso</strong> e al <em>lock-in</em> informatico nei rinnovi di canoni software.</p>
+        </div>
+        <div id="tab4-garanzie" class="tab-panel">
+          <p><strong>Garanzie sottosoglia (Art. 53):</strong> Non si richiede la garanzia provvisoria (salvo casi particolari fino all’1%). La garanzia definitiva, se richiesta, è fissa al <strong>5%</strong> dell’importo contrattuale. Il <strong>Correttivo (nuovo comma 4-bis)</strong> precisa che alle garanzie sottosoglia <em>non si applicano</em> le riduzioni dell’art. 106 c. 8 né gli aumenti progressivi dell’art. 117 c. 2. <strong>Imposta di bollo (All. I.4):</strong> Esente per affidamenti &lt; 40.000 €; scaglioni forfettari una tantum alla stipula (da 40 € fino a 1.000 € per contratti ≥ 25M €) che assorbono tutti gli atti e documenti precedenti.</p>
+        </div>
+
+        <h2 class="sec-title" id="ch4-verifica">4.3 Anomalia delle offerte, esclusioni e determina di affidamento</h2>
+        <p>Nelle gare al prezzo più basso sottosoglia (non transfrontaliere) con almeno 5 offerte ammesse, si applica l’<strong>esclusione automatica delle offerte anomale</strong> secondo il Metodo A, B o C indicato negli atti di gara (Allegato II.2). Nei criteri OEPV e sopra soglia, il RUP (eventualmente con la commissione giudicatrice) gestisce il subprocedimento di verifica dell’anomalia ex art. 110 escludendo le offerte che non rispettano i minimi salariali o gli oneri della sicurezza.</p>
+        <p>Le cause di esclusione automatica (Art. 94) e non automatica (Art. 95) sono coordinate con la tipizzazione dell’<strong>illecito professionale grave (Art. 98)</strong>. L’omessa comunicazione di fatti rilevanti non comporta esclusione automatica ma incide sulla valutazione di affidabilità. Conclusi i controlli (nel sottosoglia o a valle della proposta di aggiudicazione), viene adottata la <strong>determina di affidamento / aggiudicazione</strong> (Art. 17, c. 5), immediatamente efficace solo dopo la verifica positiva dei requisiti.</p>
+      </article>
+
+      <!-- CAPITOLO 5 -->
+      <article class="chapter-view" id="ch-5" data-chapter="5" data-title="5. Il Ruolo del RUP nella Fase Esecutiva" data-minutes="40">
+        <div class="chapter-kicker"><span>Capitolo 5</span><span>•</span><span>40 min di studio</span></div>
+        <h1 class="chapter-title">Il Ruolo del RUP nella Fase Esecutiva</h1>
+        <p class="chapter-lede">Direzione e vigilanza dell’esecuzione, sicurezza D.Lgs. 81/2008, subappalti e avvalimenti, modifiche contrattuali ex art. 120, nuova revisione prezzi post-Correttivo, penali, CCT e rilascio CEL.</p>
+
+        <h2 class="sec-title" id="ch5-sicurezza">5.1 Coordinamento dell’esecuzione e sicurezza (D.Lgs. 81/2008)</h2>
+        <p>Nella fase esecutiva il RUP svolge funzioni di impulso, controllo e indirizzo sull’operato del Direttore dei Lavori (o del DEC), fermo il riparto di compiti dell’Allegato I.2 (art. 8) e dell’Allegato II.14. Nei lavori pubblici, il RUP assume ordinariamente il ruolo di <strong>Responsabile dei Lavori ai sensi del D.Lgs. 81/2008</strong>: verifica l’idoneità tecnico-professionale delle imprese, nomina il Coordinatore per la Sicurezza in fase di Progettazione (CSP) ed Esecuzione (CSE), trasmette la notifica preliminare e vigila sull’attuazione del PSC/DUVRI.</p>
+
+        <h2 class="sec-title" id="ch5-subappalto">5.2 Subappalto (Art. 119) e Avvalimento (Art. 104)</h2>
+        <p>Il RUP rilascia l’autorizzazione al subappalto (entro 30 giorni, ridotti a 15 per subappalti &lt; 2% o &lt; 100.000 €), verificando l’assenza di cause di esclusione del subappaltatore, la qualificazione e l’applicazione dei CCNL. <strong>Novità Correttivo 209/2024 (Art. 119 c. 2-bis e All. II.2-bis art. 8):</strong> i contratti di subappalto o sub-contratti comunicati alla stazione appaltante devono obbligatoriamente disciplinare le <strong>clausole di revisione prezzi</strong> riferite alle prestazioni subappaltate, e l’appaltatore è responsabile della corretta attuazione. Nel caso di <em>avvalimento</em> (Art. 104), il RUP verifica in corso d’opera l’effettivo impiego delle risorse umane e strumentali messe a disposizione dall’impresa ausiliaria.</p>
+
+        <h2 class="sec-title" id="ch5-varianti">5.3 Modifiche contrattuali (Art. 120) e Revisione Prezzi (Art. 60)</h2>
+        <p>Nessuna variante può essere eseguita dall’appaltatore senza preventiva approvazione del RUP o dell’organo competente. L’art. 120 disciplina le modifiche ammissibili senza nuova gara (clausole previste nei documenti iniziali, lavori/servizi supplementari fino al 50%, varianti in corso d’opera per circostanze impreviste fino al 50%, quinto d’obbligo fino al 20% alle stesse condizioni, modifiche non sostanziali ex c. 7). È inoltre codificato il rimedio legale della <strong>rinegoziazione</strong> per ripristinare l’equilibrio contrattuale in caso di sopravvenienze straordinarie (Art. 9 e Art. 120 c. 8).</p>
+
+        <div class="admonition danger">
+          <div class="admonition-title"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">gavel</span>Nuova Revisione Prezzi post-Correttivo (Art. 60 e All. II.2-bis)</div>
+          <p style="margin:0;">Il D.Lgs. 209/2024 ha differenziato nettamente le soglie di attivazione e ha chiarito che la clausola opera <strong>esclusivamente sulla parte eccedente la franchigia</strong>:</p>
+          <ul style="margin:0.4rem 0 0 1.2rem;">
+            <li><strong>Appalti di Lavori:</strong> Scatta per variazioni (in aumento o diminuzione) superiori al <strong>3%</strong> dell’importo complessivo e opera nella misura del <strong>90% del valore eccedente il 3%</strong>, usando indici sintetici delle Tipologie Omogenee di Lavorazioni (TOL).</li>
+            <li><strong>Appalti di Servizi e Forniture:</strong> Si applica solo ai contratti di durata (non a prestazione istantanea). Scatta per variazioni superiori al <strong>5%</strong> e opera nella misura dell’<strong>80% del valore eccedente il 5%</strong>, mediante associazione dei codici CPV agli indici ISTAT (prezzi al consumo, produzione, retribuzioni orarie).</li>
+          </ul>
+        </div>
+
+        <h2 class="sec-title" id="ch5-contenzioso">5.4 Sospensioni, Penali, Premi, CCT e Rilascio CEL</h2>
+        <p>Il RUP dispone la sospensione dei lavori per ragioni di pubblico interesse o necessità (Art. 121) e ne attesta la ripresa. Per il ritardo nell’adempimento si applicano le <strong>penali giornaliere</strong> comprese tra lo 0,3‰ e l’1‰ dell’ammontare netto contrattuale (fino al limite del 10%); facoltativamente possono essere previsti <strong>premi di accelerazione</strong> (Art. 126, c. 2). Le riserve iscritte nei lavori ≥ 5% e ≤ 15% attivano l’<strong>Accordo Bonario</strong> (Art. 210) istruito dal RUP. Per lavori pari o superiori alla soglia UE è obbligatorio il <strong>Collegio Consultivo Tecnico (CCT)</strong> (Artt. 215–218): il Correttivo ha chiarito che le determinazioni del CCT possono assumere valore di lodo contrattuale ex art. 808-ter c.p.c., precludendo in tal caso l’accordo bonario. Infine, in base al nuovo <strong>art. 8, c. 1, lett. s-bis) All. I.2</strong>, il RUP rilascia il <strong>Certificato di Esecuzione Lavori (CEL) entro 30 giorni</strong> dalla richiesta dell’esecutore.</p>
+      </article>
+
+      <!-- CAPITOLO 6 -->
+      <article class="chapter-view" id="ch-6" data-chapter="6" data-title="6. I Compiti Operativi del DEC nei Contratti di Servizi e Forniture" data-minutes="35">
+        <div class="chapter-kicker"><span>Capitolo 6</span><span>•</span><span>35 min di studio</span></div>
+        <h1 class="chapter-title">I Compiti Operativi del DEC nei Contratti di Servizi e Forniture</h1>
+        <p class="chapter-lede">Avvio dell’esecuzione, ordini di servizio, controllo SLA/KPI, monitoraggio CAM e migliorie OEPV, vigilanza sui subappalti, contestazioni, riserve e verifica di conformità.</p>
+
+        <h2 class="sec-title" id="ch6-avvio">6.1 Avvio dell’esecuzione e ordini di servizio</h2>
+        <p>Ricevuta l’autorizzazione dal RUP, il DEC dà avvio all’esecuzione del contratto redigendo apposito <strong>verbale di avvio dell’esecuzione in contraddittorio</strong> con l’appaltatore (Art. 31 e Capo II, All. II.14). Nei casi di urgenza motivata, il RUP può autorizzare l’esecuzione anticipata prima della stipula del contratto (Art. 17, c. 8–9). Durante tutta la durata contrattuale, il DEC impartisce all’esecutore tutte le disposizioni e istruzioni operative mediante <strong>ordini di servizio</strong> (anche digitali), comunicati per conoscenza al RUP.</p>
+
+        <h2 class="sec-title" id="ch6-qualita">6.2 Controllo tecnico-contabile, SLA, CAM e migliorie di gara</h2>
+        <p>Il DEC assicura la regolare esecuzione verificando che le prestazioni rispettino le prescrizioni del capitolato speciale d’appalto, gli standard qualitativi (<strong>SLA e KPI</strong>) e l’offerta tecnica presentata dall’aggiudicatario:</p>
+        <ul>
+          <li><strong>Monitoraggio CAM (Criteri Ambientali Minimi):</strong> Controlla la conformità di prodotti, detergenti, flotte veicolari, gestione rifiuti e certificazioni ambientali dichiarate in gara.</li>
+          <li><strong>Verifica delle migliorie OEPV:</strong> Accerta che tutte le prestazioni aggiuntive o migliorative offerte per ottenere punteggio tecnico (ore extra, tecnologie, apparecchiature, personale aggiuntivo) vengano effettivamente rese senza oneri per l’ente.</li>
+          <li><strong>Contabilità esecutiva:</strong> Tiene i documenti contabili (registro di contabilità/stati di avanzamento periodici) e rilascia l’attestazione di regolare esecuzione periodica necessaria al RUP per emettere il certificato di pagamento.</li>
+        </ul>
+
+        <h2 class="sec-title" id="ch6-subappalti">6.3 Vigilanza su subappaltatori autorizzati e CCNL</h2>
+        <p>Il DEC accerta che l’esecutore non si avvalga di subappaltatori o sub-fornitori non autorizzati o non comunicati. Verifica sul campo il rispetto degli obblighi di tutela dei lavoratori, l’applicazione del <strong>CCNL indicato negli atti di gara</strong> (o di contratto collettivo equivalente secondo i parametri dell’Allegato I.01 introdotto dal Correttivo) e la permanenza della regolarità contributiva e assicurativa del personale impiegato.</p>
+
+        <h2 class="sec-title" id="ch6-contestazioni">6.4 Verbali di contestazione, penali, riserve e verifica di conformità</h2>
+        <p>Quando rileva inadempienze, ritardi o scostamenti dagli standard, il DEC redige tempestivamente un <strong>verbale di contestazione</strong> formale in contraddittorio (o con assegnazione termine per controdeduzioni), proponendo al RUP l’applicazione delle <strong>penali contrattuali</strong> o, nei casi più gravi, l’avvio della risoluzione per grave inadempimento (Art. 122). Se l’appaltatore iscrive riserve nei documenti contabili, il DEC esamina i profili tecnico-contabili e trasmette al RUP una relazione riservata istruttoria.</p>
+        <p>Al termine del contratto, il DEC (o apposito verificatore della conformità per servizi/forniture ad alta complessità tecnologica ex art. 116, c. 5) esegue le operazioni finali e rilascia il <strong>Certificato di Verifica di Conformità</strong> (o il Certificato di Regolare Esecuzione nei contratti sottosoglia), consentendo lo svincolo della cauzione definitiva e il pagamento del saldo.</p>
+
+        <details class="exp-block">
+          <summary><span>Schema operativo — Contenuto minimo del Verbale di Contestazione del DEC</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <div class="exp-body">
+            <ol style="margin:0;padding-left:1.2rem;">
+              <li><strong>Dati identificativi:</strong> CIG, oggetto del contratto, estremi della determina di affidamento e nominativo del RUP e del DEC.</li>
+              <li><strong>Accertamento del fatto:</strong> Data, ora, luogo del sopralluogo/verifica e descrizione analitica della difformità rispetto a Capitolato, SLA, CAM o migliorie OEPV offerte.</li>
+              <li><strong>Contraddittorio e termine:</strong> Assegnazione di un termine perentorio (es. 5–10 giorni) per le controdeduzioni scritte dell’appaltatore e/o per l’eliminazione dell’inadempimento.</li>
+              <li><strong>Proposta al RUP:</strong> Quantificazione della penale contrattuale proposta o segnalazione dei presupposti di grave inadempimento ex art. 122.</li>
+            </ol>
+          </div>
+        </details>
+      </article>
+
+      <!-- CAPITOLO 7 -->
+      <article class="chapter-view" id="ch-7" data-chapter="7" data-title="7. Quadro Sinottico e Interazione Operativa RUP vs DEC" data-minutes="30">
+        <div class="chapter-kicker"><span>Capitolo 7</span><span>•</span><span>30 min di studio</span></div>
+        <h1 class="chapter-title">Quadro Sinottico e Interazione Operativa RUP vs DEC</h1>
+        <p class="chapter-lede">Matrice operativa delle responsabilità tra RUP, DEC (o DL) ed eventuali Responsabili di fase ex art. 15, c. 4 lungo l’intero ciclo esecutivo del contratto.</p>
+
+        <h2 class="sec-title" id="ch7-sinottico">7.1 Matrice sinottica per fasi (filtra per ambito)</h2>
+        <p>Usa il filtro sottostante per isolare la fase operativa di interesse e verificare chi propone, chi istruisce e chi adotta l’atto formale.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.75rem 0;">
+          <button type="button" class="btn-primary" onclick="filterMatrix('all', this)">Tutte le fasi</button>
+          <button type="button" class="btn-secondary" onclick="filterMatrix('avvio', this)">Avvio & Controllo</button>
+          <button type="button" class="btn-secondary" onclick="filterMatrix('modifiche', this)">Subappalti & Modifiche</button>
+          <button type="button" class="btn-secondary" onclick="filterMatrix('contabilita', this)">Contabilità & Penali</button>
+          <button type="button" class="btn-secondary" onclick="filterMatrix('chiusura', this)">Ultimazione & Collaudo</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="matrix-table">
+            <thead>
+              <tr>
+                <th>Fase / Attività</th>
+                <th>Compiti del RUP (Art. 15 & All. I.2)</th>
+                <th>Compiti del DEC / DL (Art. 114 & All. II.14)</th>
+                <th>Atto / Output Formale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-cat="avvio">
+                <td><strong>Nomina e Avvio Esecuzione</strong></td>
+                <td>Autorizza il DEC ad avviare l’esecuzione; verifica presupposti consegna d’urgenza (Art. 17 c. 8).</td>
+                <td>Convoca l’appaltatore e redige il verbale di avvio in contraddittorio; verifica mezzi e personale.</td>
+                <td class="mono">Autorizzazione RUP + Verbale Avvio DEC</td>
+              </tr>
+              <tr data-cat="avvio">
+                <td><strong>Controllo Ordinario, SLA & CAM</strong></td>
+                <td>Vigila sull’andamento complessivo; riceve report periodici e interviene su criticità strutturali.</td>
+                <td>Emette ordini di servizio; controlla qualità, SLA, CAM e migliorie offerte in gara.</td>
+                <td class="mono">Ordini di servizio + Report ispettivi</td>
+              </tr>
+              <tr data-cat="modifiche">
+                <td><strong>Subappalto e Avvalimento</strong></td>
+                <td>Istruisce i requisiti ex artt. 94–95, verifica clausola revisione prezzi subappalto e adotta l’autorizzazione.</td>
+                <td>Verifica in cantiere/sede l’effettiva presenza dei soli subappaltatori autorizzati e risorse ausiliarie.</td>
+                <td class="mono">Atto autorizzazione RUP (entro 30/15 gg)</td>
+              </tr>
+              <tr data-cat="modifiche">
+                <td><strong>Modifiche Contrattuali & Varianti</strong></td>
+                <td>Accerta presupposti ex art. 120, approva modifiche non sostanziali o propone variante all’organo competente; trasmette scheda ANAC.</td>
+                <td>Redige relazione tecnica giustificativa della variante/modifica e concorda eventuali nuovi prezzi con l’esecutore.</td>
+                <td class="mono">Perizia / Atto di sottomissione / Scheda ANAC</td>
+              </tr>
+              <tr data-cat="modifiche">
+                <td><strong>Revisione Prezzi (Art. 60)</strong></td>
+                <td>Verifica attivazione soglia (3% lav. / 5% serv.), accerta copertura somme a disposizione nel QE e liquida.</td>
+                <td>Calcola gli scostamenti per SAL/periodo secondo indici ISTAT/TOL e tabella CPV.</td>
+                <td class="mono">Determina liquidazione revisionale</td>
+              </tr>
+              <tr data-cat="contabilita">
+                <td><strong>Sospensioni e Riprese</strong></td>
+                <td>Dispone sospensioni per pubblico interesse/forza maggiore; convalida e comunica durata all’ANAC se &gt; 1/4 tempo.</td>
+                <td>Redige verbale di sospensione per cause tecniche/climatiche e successivo verbale di ripresa.</td>
+                <td class="mono">Verbale sospensione/ripresa + Stato consistenza</td>
+              </tr>
+              <tr data-cat="contabilita">
+                <td><strong>Penali e Contestazioni</strong></td>
+                <td>Adotta il provvedimento formale di applicazione delle penali in deduzione sul certificato di pagamento.</td>
+                <td>Contesta tempestivamente inadempimenti/ritardi e quantifica i giorni/importi di penale proposti.</td>
+                <td class="mono">Verbale contestazione + Decreto penale</td>
+              </tr>
+              <tr data-cat="contabilita">
+                <td><strong>Contabilità, SAL e Pagamenti</strong></td>
+                <td>Emette il Certificato di Pagamento entro 7 giorni dalla maturazione del SAL/stato avanzamento e verifica DURC/F24/congruità.</td>
+                <td>Redige il SAL o stato di avanzamento periodico delle prestazioni regolarmente eseguite.</td>
+                <td class="mono">SAL / Stato avanzamento + Certificato Pagamento</td>
+              </tr>
+              <tr data-cat="chiusura">
+                <td><strong>Ultimazione e Collaudo / Verifica Conformità</strong></td>
+                <td>Trasmette atti a collaudatori (o nomina verificatore); approva atti finali, svincola cauzione e rilascia CEL entro 30 gg.</td>
+                <td>Accerta ultimazione con verbale; redige il CRE (sottosoglia) o assiste alle operazioni di verifica di conformità/collaudo.</td>
+                <td class="mono">Certificato Ultimazione + CRE / Collaudo + CEL</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="sec-title" id="ch7-collaudatori">7.2 Collaudatori post-Correttivo (Art. 116) e Responsabili di fase</h2>
+        <p>Il D.Lgs. 209/2024 ha riscritto la nomina dei collaudatori (Art. 116): le PA nominano da 1 a 3 collaudatori tra il proprio personale (appartenente a strutture funzionalmente indipendenti) o di altre PA. Per i dipendenti pubblici esterni alla stazione appaltante il compenso è calcolato secondo il DM Giustizia 17 giugno 2016; per i dipendenti interni rientra nella disciplina dell’art. 116, c. 4 / art. 45. Restano ferme le rigide incompatibilità (chi ha svolto attività di controllo, progettazione, direzione o vigilanza sul contratto non può collaudarlo).</p>
+      </article>
+
+      <!-- CAPITOLO 8 -->
+      <article class="chapter-view" id="ch-8" data-chapter="8" data-title="8. Contabilità, Pagamenti e Criticità Procedurali" data-minutes="35">
+        <div class="chapter-kicker"><span>Capitolo 8</span><span>•</span><span>35 min di studio</span></div>
+        <h1 class="chapter-title">Contabilità, Pagamenti e Criticità Procedurali</h1>
+        <p class="chapter-lede">Anticipazione del prezzo per contratti pluriennali, momento perfezionativo dell’impegno di spesa negli affidamenti diretti, gestione fiscale degli RTI e DURC di congruità edilizia.</p>
+
+        <h2 class="sec-title" id="ch8-anticipazione">8.1 Anticipazione del prezzo (Art. 125) e servizi pluriennali</h2>
+        <p>L’art. 125 prevede un’anticipazione del prezzo pari al <strong>20% del valore del contratto</strong> (estendibile fino al 30% nei documenti di gara compatibilmente con le risorse disponibili), da corrispondere entro 15 giorni dall’effettivo inizio della prestazione, previa costituzione di idonea garanzia fideiussoria bancaria o assicurativa di importo pari all’anticipazione maggiorato del tasso di interesse legale. Nei <strong>contratti di servizi e forniture ad esecuzione pluriennale</strong>, l’importo dell’anticipazione deve essere calcolato sul valore delle prestazioni di ciascuna <strong>annualità contabile</strong> stabilita nel cronoprogramma dei pagamenti e recuperato progressivamente sugli stati di avanzamento dell’annualità stessa (esclusi i servizi intellettuali o prestazioni istantanee di cui all’All. II.14 art. 33).</p>
+
+        <h2 class="sec-title" id="ch8-impegno">8.2 Perfezionamento dell’obbligazione giuridica e impegno di spesa</h2>
+        <p>Un nodo operativo cruciale nei Comuni riguarda l’armonizzazione contabile (D.Lgs. 118/2011) rispetto all’art. 17 del Codice dei contratti:</p>
+        <div class="admonition tip">
+          <div class="admonition-title"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">account_balance</span>Chiarimento Supporto Giuridico MIT sull’Affidamento Diretto</div>
+          <p style="margin:0;">Nelle procedure di gara ordinarie vige l’<strong>art. 17, c. 6</strong> («l’aggiudicazione non equivale ad accettazione dell’offerta»): in sede di determina a contrarre si assume una <strong>prenotazione di impegno</strong>, mentre l’impegno di spesa definitivo si perfeziona con la stipula del contratto. Diversamente, nel caso di <strong>affidamento diretto</strong> (art. 17, c. 2 e art. 50), l’atto di affidamento (determina a contrarre semplificata) contiene già l’individuazione dell’affidatario, l’importo e gli elementi essenziali: pertanto, come chiarito dal Supporto Giuridico del MIT, <strong>l’obbligazione giuridica si perfeziona con l’atto di affidamento stesso</strong> e la successiva lettera commerciale ha rilievo contrattuale-formale senza incidere sull’efficacia dell’impegno di spesa già assunto.</p>
+        </div>
+
+        <h2 class="sec-title" id="ch8-rti">8.3 Fatturazione e pagamenti negli RTI (autonomia fiscale delle mandanti)</h2>
+        <p>Come ribadito dalla prassi ragionieristica degli enti locali (cfr. <strong>Nota Ragioneria Generale Comune di Palermo prot. RIS 27 del 19.02.2026 — PON Metro Plus</strong>), il Raggruppamento Temporaneo di Imprese (RTI) non dà vita a un soggetto giuridico nuovo dotato di autonoma soggettività fiscale. Salvo diversa ed espressa previsione contrattuale che legittimi la mandataria alla fatturazione accentrata in nome e per conto, vige il principio dell’<strong>autonomia fiscale di ciascuna impresa raggruppata</strong>:</p>
+        <ul>
+          <li>Ogni impresa (mandataria e mandanti) emette fattura elettronica direttamente nei confronti della Stazione Appaltante pro quota per le prestazioni effettivamente eseguite in base alle quote di esecuzione dichiarate;</li>
+          <li>I mandati di pagamento devono indicare il corretto beneficiario fiscale e il conto corrente dedicato (tracciabilità L. 136/2010), effettuando le verifiche DURC e Art. 48-bis DPR 602/1973 (Equitalia/AdER &gt; 5.000 €) in capo a ciascuna impresa percipiente, salvo mandato irrevocabile all’incasso della sola capogruppo espresso chiaramente nell’atto costitutivo dell’RTI e nelle quietanze.</li>
+        </ul>
+
+        <h2 class="sec-title" id="ch8-durc">8.4 DURC di congruità della manodopera edilizia (ANAC 2025/2026)</h2>
+        <p>Per tutti gli appalti pubblici di lavori edili (e lavori misti con componente edile ≥ 70.000 € complessivi), è obbligatoria la verifica della <strong>congruità dell’incidenza della manodopera</strong> tramite il portale <strong>Edilconnect</strong> gestito dalla Cassa Edile/Edilcassa competente, secondo le indicazioni ANAC 2025/2026 e il DM 143/2021:</p>
+        <ul>
+          <li><strong>Quando si richiede:</strong> In occasione della presentazione dell’ultimo Stato di Avanzamento Lavori (SAL) da parte dell’impresa, prima di procedere al pagamento del saldo finale.</li>
+          <li><strong>Tolleranza e blocco saldo:</strong> È ammesso uno scostamento rispetto agli indici minimi di congruità (es. fino al 5%) giustificato da dichiarazione del direttore dei lavori/asseverazione; in caso di esito negativo o mancata regolarizzazione entro 15 giorni, la Cassa Edile rilascia attestazione di irregolarità che comporta <strong>il blocco del pagamento del saldo finale</strong> e impedisce l’emissione del DURC ordinario regolare, con iscrizione dell’impresa nella Banca Dati Nazionale Imprese Irregolari (BNI).</li>
+        </ul>
+
+        <details class="exp-block">
+          <summary><span>Checklist liquidazione — Documenti obbligatori prima dell’emissione del mandato</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></summary>
+          <div class="exp-body">
+            <ul style="margin:0;padding-left:1.2rem;">
+              <li>Certificato di pagamento del RUP (entro 7 gg dal SAL / attestazione di regolare esecuzione periodica del DEC).</li>
+              <li>Fattura elettronica coerente con CIG, CUP, split payment/reverse charge e quota di esecuzione della singola impresa in caso di RTI.</li>
+              <li>DURC ordinario regolare in corso di validità (per appaltatore e subappaltatori) + DURC di congruità Edilconnect per saldo lavori edili.</li>
+              <li>Verifica inadempimenti ex art. 48-bis DPR 602/1973 (Agenzia Entrate-Riscossione) per pagamenti superiori a 5.000 €.</li>
+              <li>Verifica conto corrente dedicato (tracciabilità flussi finanziari L. 136/2010).</li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <!-- CAPITOLO 9 -->
+      <article class="chapter-view" id="ch-9" data-chapter="9" data-title="9. Incentivi per Funzioni Tecniche (Art. 45 e All. I.10)" data-minutes="35">
+        <div class="chapter-kicker"><span>Capitolo 9</span><span>•</span><span>35 min di studio</span></div>
+        <h1 class="chapter-title">Incentivi per Funzioni Tecniche (Art. 45 e All. I.10)</h1>
+        <p class="chapter-lede">Ambito oggettivo e soggettivo post-Correttivo D.Lgs. 209/2024, attività tassative incentivabili, riparto 80%/20%, tetti retributivi e calcolatore interattivo su appalti tipo.</p>
+
+        <h2 class="sec-title" id="ch9-novita">9.1 Novità dell’Art. 45 e impatto del Correttivo 2024</h2>
+        <p>L’art. 45 ha superato i limiti del vecchio art. 113 D.Lgs. 50/2016: le risorse incentivanti (max <strong>2%</strong> sull’importo a base della procedura, IVA esclusa, al lordo di oneri riflessi e IRAP) gravano sugli stanziamenti previsti per le <strong>singole procedure di affidamento</strong> — includendo quindi pienamente gli <strong>affidamenti diretti</strong>, le concessioni e i singoli contratti applicativi degli accordi quadro (non sul massimale teorico dell’accordo). L’erogazione avviene <strong>direttamente al personale</strong> senza più transitare nel fondo risorse decentrate.</p>
+        <p><strong>Modifiche del D.Lgs. 209/2024:</strong> Il Correttivo ha sostituito ovunque la parola «dipendenti» con «<strong>personale</strong>» e ha eliminato l’ultimo periodo del comma 4 che escludeva espressamente la dirigenza (aprendo il dibattito sull’estensione al personale dirigenziale oltre la deroga temporanea PNRR 2023–2026 prevista dall’art. 8, c. 5 D.L. 13/2023, fermo l’obbligo di apposita disciplina in contrattazione decentrata). Rimane fermo il principio della Corte dei Conti (Toscana 196/2023, Veneto 297/2024) e del <strong>Parere MIT 2721/2024</strong>: per <strong>servizi e forniture</strong> gli incentivi spettano <strong>solo quando è obbligatoriamente nominato un DEC distinto dal RUP</strong> ai sensi dell’art. 32 All. II.14.</p>
+
+        <h2 class="sec-title" id="ch9-riparto">9.2 Riparto 80% / 20%, attività All. I.10 e contrattazione decentrata</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Quota Fondo Tecnico (≤ 2% base gara)</th>
+                <th>Destinazione Legale</th>
+                <th>Regole di Liquidazione e Limiti</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono"><strong>80%</strong></td>
+                <td>Incentivo diretto al personale che svolge le attività tassative dell’<strong>Allegato I.10</strong> (Programmazione spesa, RUP, collaboratori RUP, verifica progetti, DL/DEC, coordinamento sicurezza, collaudo/CRE/verifica conformità)</td>
+                <td>Tetto individuale annuo lordo pari al <strong>100% del trattamento economico annuo lordo</strong> (elevato del <strong>+15%</strong> se l’ente adotta metodi BIM/digitali ex art. 43). Riduzioni obbligatorie in caso di ritardi o incrementi di costi ingiustificati.</td>
+              </tr>
+              <tr>
+                <td class="mono"><strong>20%</strong></td>
+                <td>Acquisto beni e tecnologie funzionali, hardware/software BIM, banche dati, tirocini formativi, attività di formazione e copertura <strong>oneri assicurazione obbligatoria del personale</strong></td>
+                <td>Esclusa la quota di eventuali risorse derivanti da finanziamenti europei o a destinazione vincolata. Incrementata dalle quote non erogate dell’80% (attività affidate all’esterno o prive di attestazione).</td>
+              </tr>
+              <tr>
+                <td class="mono"><strong>Fino al 25%</strong> (dell’incentivo c. 2)</td>
+                <td>Personale delle <strong>Centrali di Committenza (CUC)</strong> per funzioni tecniche effettivamente svolte</td>
+                <td>Destinabile su richiesta della CUC secondo convenzione e riparto interno.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p><strong>Fonte regolatoria (Art. 1 c. 4 e Parere MIT 2393/2024):</strong> I criteri di ripartizione dell’incentivo non richiedono più un regolamento ad hoc approvato in Giunta/Consiglio, ma sono rimessi alla <strong>contrattazione collettiva decentrata integrativa</strong> (CCDI), fermo restando che molti enti adottano un atto organizzativo/regolamento interno recettivo dell’accordo sindacale per fissare le aliquote tra le figure tecniche.</p>
+
+        <!-- CALCOLATORE INTERATTIVO INCENTIVI ART. 45 -->
+        <div class="tool-panel" id="tool-incentivi">
+          <div class="mono" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--primary);margin-bottom:0.35rem;">Strumento Interattivo • Calcolatore Incentivi Art. 45</div>
+          <h3 style="margin:0 0 0.75rem 0;font-size:1.1rem;">Simulazione numerica su appalto di Lavori o Servizi/Forniture</h3>
+          <div class="form-grid">
+            <div>
+              <label class="field-label" for="inc-tipo">Tipo Appalto</label>
+              <select id="inc-tipo" class="field-control" onchange="calcIncentivi()">
+                <option value="lavori">Lavori Pubblici</option>
+                <option value="servizi">Servizi / Forniture (con DEC obbligatorio)</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label" for="inc-base">Importo a base d'asta (€ IVA escl.)</label>
+              <input type="number" id="inc-base" class="field-control" value="400000" min="0" step="5000" oninput="calcIncentivi()">
+            </div>
+            <div>
+              <label class="field-label" for="inc-aliquota">Aliquota Ente (max 2,00%)</label>
+              <input type="number" id="inc-aliquota" class="field-control" value="2.0" min="0.5" max="2.0" step="0.1" oninput="calcIncentivi()">
+            </div>
+            <div>
+              <label class="field-label" for="inc-cuc">Quota a CUC (0% – 25%)</label>
+              <input type="number" id="inc-cuc" class="field-control" value="0" min="0" max="25" step="5" oninput="calcIncentivi()">
+            </div>
+          </div>
+          <div id="inc-output" style="margin-top:1rem;"></div>
+        </div>
+      </article>
+
+      <!-- CAPITOLO 10 -->
+      <article class="chapter-view" id="ch-10" data-chapter="10" data-title="10. Responsabilità Amministrativa, Erariale e Nuove Tutele 2026" data-minutes="35">
+        <div class="chapter-kicker"><span>Capitolo 10</span><span>•</span><span>35 min di studio</span></div>
+        <h1 class="chapter-title">Responsabilità Amministrativa, Erariale e Nuove Tutele 2026</h1>
+        <p class="chapter-lede">La svolta della Legge 7 gennaio 2026, n. 1: nuova perimetrazione della colpa grave, scudo del visto preventivo, tetto risarcitorio, prescrizione quinquennale e polizza assicurativa obbligatoria.</p>
+
+        <h2 class="sec-title" id="ch10-colpa">10.1 La Riforma Legge 1/2026 e la nuova Colpa Grave</h2>
+        <p>Per combattere definitivamente la «paura della firma» e la burocrazia difensiva, la <strong>Legge 7 gennaio 2026, n. 1</strong> ha modificato profondamente la Legge 20/1994 e l’assetto della Corte dei conti. La nuova definizione legale di <strong>colpa grave</strong> limita la perseguibilità del funzionario ai soli casi estremi:</p>
+        <ul>
+          <li>Violazione <strong>manifesta</strong> delle norme di diritto applicabili (valutata in base alla chiarezza/precisione della norma e all’inescusabilità dell’inosservanza);</li>
+          <li><strong>Travisamento del fatto</strong>, affermazione di un fatto incontrastabilmente escluso dagli atti o negazione di un fatto che risulta incontrastabilmente dagli atti;</li>
+          <li><strong>Esimente legale:</strong> Non costituisce mai colpa grave la violazione o l’omissione determinata dal riferimento a <strong>indirizzi giurisprudenziali prevalenti o a pareri delle autorità competenti</strong> (es. ANAC, MIT, Ragioneria).</li>
+        </ul>
+
+        <h2 class="sec-title" id="ch10-scudo">10.2 Scudo erariale del Visto, Pareri, Tetto e Prescrizione</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Istituto Riformato (L. 1/2026)</th>
+                <th>Disciplina Previgente</th>
+                <th>Nuova Tutela Operativa dal 2026</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Visto preventivo Corte dei conti</strong></td>
+                <td>Esclusione colpa limitata ai soli profili espressamente esaminati</td>
+                <td><strong>Esonero automatico da colpa grave</strong> esteso anche agli atti richiamati e allegati che costituiscono presupposto logico-giuridico. Controllo esteso anche a servizi e forniture &gt; 140.000 €.</td>
+              </tr>
+              <tr>
+                <td><strong>Pareri su questioni concrete</strong></td>
+                <td>Richieste astratte e tempi lunghi</td>
+                <td>Per importi &gt; 1M € è possibile chiedere parere contabile concreto: se l’ente si adegua (o se la Corte non risponde entro <strong>30 giorni — silenzio-assenso</strong>), la colpa grave è esclusa.</td>
+              </tr>
+              <tr>
+                <td><strong>Tetto massimo risarcitorio</strong></td>
+                <td>Risarcimento fino al 100% del danno erariale (salvo potere riduttivo)</td>
+                <td>Salvo dolo o illecito arricchimento, il responsabile risarcisce al massimo <strong>2 volte il proprio stipendio lordo annuo</strong> (o il 30% del danno accertato).</td>
+              </tr>
+              <tr>
+                <td><strong>Accordi di conciliazione &amp; Organi politici</strong></td>
+                <td>Rischio erariale frequente su transazioni e atti vistati</td>
+                <td>Solo responsabilità per <strong>dolo</strong> su accordi di conciliazione/mediazione/transazioni fiscali. Si presume la buona fede dei politici su atti proposti o vistati dai tecnici senza pareri contrari.</td>
+              </tr>
+              <tr>
+                <td><strong>Prescrizione</strong></td>
+                <td>Decorrenza spesso ancorata alla scoperta del danno</td>
+                <td><strong>5 anni rigidi dal fatto dannoso</strong>, indipendentemente dalla conoscenza dell’amministrazione o della Corte (salvo occultamento doloso attivo).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="sec-title" id="ch10-pnrr">10.3 Sanzioni PNRR-PNC e Obbligo Assicurativo (Art. 1 c. 4-bis)</h2>
+        <div class="admonition warning">
+          <div class="admonition-title"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">policy</span>Attenzione: Sanzioni per ritardi PNRR e Polizza Assicurativa</div>
+          <p style="margin:0;">L’<strong>art. 4 della L. 1/2026</strong> punisce il pubblico ufficiale responsabile di procedimenti PNRR-PNC che provochi per fatto imputabile un <strong>ritardo superiore al 10%</strong> rispetto ai tempi stabiliti, con sanzione pecuniaria da <strong>150 € fino a 2 annualità lorde</strong> (oltre a possibile sospensione dalla gestione risorse pubbliche da 6 mesi a 3 anni in caso di condanna). Quanto all’<strong>obbligo di polizza assicurativa</strong> contro i danni da colpa grave prima dell’assunzione dell’incarico (nuovo art. 1, c. 4-bis L. 20/1994, con assicurazione litisconsorte necessario nei giudizi), il legislatore ha differito l’operatività pratica al <strong>2027</strong> tramite decreto Milleproroghe (copribile anche mediante la quota del 20% degli incentivi ex art. 45, c. 7, lett. c).</p>
+        </div>
+      </article>
+
+      <!-- CAPITOLO 11 -->
+      <article class="chapter-view" id="ch-11" data-chapter="11" data-title="11. Autovalutazione Finale (20 Quesiti)" data-minutes="35">
+        <div class="chapter-kicker"><span>Capitolo 11</span><span>•</span><span>35 min • Test interattivo</span></div>
+        <h1 class="chapter-title">Autovalutazione Finale sulle Competenze RUP e DEC</h1>
+        <p class="chapter-lede">Verifica la tua padronanza operativa con 20 quesiti a risposta multipla basati sul D.Lgs. 36/2023, sul Correttivo D.Lgs. 209/2024, sui pareri MIT/ANAC e sulla Legge 1/2026.</p>
+
+        <div class="tool-panel" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+          <div>
+            <div class="mono" style="font-size:0.75rem;color:var(--on-surface-variant);text-transform:uppercase;">Stato Valutazione</div>
+            <div id="quiz-summary" style="font-size:1.15rem;font-weight:700;">Risposte date: 0 / 20 • Punteggio: 0 / 20</div>
+            <div id="quiz-level" style="font-size:0.875rem;color:var(--on-surface-variant);">Completa tutti i 20 quesiti per ottenere la valutazione finale.</div>
+          </div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <button type="button" class="btn-secondary" onclick="exportQuizReport()">Esporta report (.txt)</button>
+            <button type="button" class="btn-primary" id="btn-reset-quiz" onclick="resetQuiz(this)">Ripristina Test</button>
+          </div>
+        </div>
+
+        <div id="quiz-container"></div>
+      </article>
+
+      <!-- BARRA LETTURA & PAGINAZIONE -->
+      <div class="read-toggle-bar" id="read-controls">
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+          <span style="font-size:0.875rem;font-weight:700;">Stato studio capitolo:</span>
+          <button type="button" class="read-btn" id="btn-mark-read" onclick="setChapterRead(true)">
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">check_circle</span>
+            <span>Letto</span>
+          </button>
+          <button type="button" class="read-btn" id="btn-mark-unread" onclick="setChapterRead(false)">
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">radio_button_unchecked</span>
+            <span>Da leggere</span>
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+          <button type="button" class="btn-secondary" id="btn-prev-chapter" onclick="prevChapter()">
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">arrow_back</span>
+            <span>Pagina precedente</span>
+          </button>
+          <button type="button" class="btn-primary" id="btn-next-chapter" onclick="nextChapter()">
+            <span>Pagina successiva</span>
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT SIDEBAR: Sticky TOC with Scrollspy -->
+    <aside class="right-sidebar" aria-label="Indice della pagina corrente">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem;padding-bottom:0.45rem;border-bottom:1px solid var(--outline-variant);">
+        <span class="mono" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--on-surface-variant);">In questa pagina</span>
+      </div>
+      <nav id="right-toc-list"></nav>
+      <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid var(--outline-variant);">
+        <button type="button" class="btn-secondary" style="width:100%;justify-content:center;font-size:0.82rem;" onclick="scrollToTop()">
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:17px;">arrow_upward</span>
+          <span>Torna a inizio pagina</span>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+      <div>
+        <p style="margin:0 0 0.3rem 0;font-weight:700;color:var(--on-surface);">Fonti normative e orientamenti di riferimento:</p>
+        <p style="margin:0;">D.Lgs. 36/2023 e Relazione Illustrativa • Correttivo D.Lgs. 209/2024 • Legge 7 gennaio 2026 n. 1 (Corte dei conti e responsabilità) • Pareri Supporto Giuridico MIT (2393/2024, 2540/2024, 2627/2024, 2721/2024) • Linee Guida MIT BIM 23.02.2026 • Delibere ANAC &amp; Quaderno ANCI • Nota Ragioneria Comune di Palermo prot. RIS 27/2026.</p>
+        <p style="margin:0.45rem 0 0 0;"><strong>sito generato da Google Notebook su prompt di Ciro Spataro</strong> — Data: 24 Novembre 2026 — Licenza: CC BY-SA</p>
+      </div>
+      <div>
+        <button type="button" class="btn-secondary" style="border-radius:20px;" onclick="openPromptModal()">
+          <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">description</span>
+          <span>prompt utilizzato</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL PROMPT UTILIZZATO -->
+  <div class="modal-backdrop" id="prompt-modal" role="dialog" aria-modal="true" aria-labelledby="prompt-modal-title" onclick="handleModalBackdrop(event)">
+    <div class="modal-dialog">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid var(--outline-variant);">
+        <h2 id="prompt-modal-title" style="margin:0;font-size:1.1rem;font-weight:700;">Prompt utilizzato per la generazione del manuale</h2>
+        <button type="button" class="btn-secondary" style="padding:0.35rem 0.65rem;" onclick="closePromptModal()" aria-label="Chiudi finestra modale">Chiudi</button>
+      </div>
+      <div class="modal-body" id="prompt-modal-text"></div>
+    </div>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    const CHAPTER_META = [
+      { id: 1, title: `1. Home & Quadro Generale dei Principi`, short: `Principi e Ciclo di Vita`, mins: 30, desc: `Ciclo di vita dei contratti, Principi del risultato, fiducia, accesso al mercato e buona fede.` },
+      { id: 2, title: `2. Requisiti, Competenze e Nomina`, short: `RUP vs DEC: Requisiti`, mins: 40, desc: `Art. 15 e All. I.2 per il RUP; Art. 114 e All. II.14 per il DEC; titoli, esperienza e simulatore.` },
+      { id: 3, title: `3. Compiti Trasversali del RUP`, short: `Fasi & Digitalizzazione`, mins: 35, desc: `Programmazione triennale, BIM Art. 43, verifica/validazione, BDNCP, FVOE e qualificazione SA.` },
+      { id: 4, title: `4. Sotto-Soglia e Sopra-Soglia`, short: `Procedure e Soglie`, mins: 40, desc: `Soglie UE, affidamenti diretti, rotazione Art. 49, negoziate, anomalie, bollo e determina.` },
+      { id: 5, title: `5. Il RUP nella Fase Esecutiva`, short: `Esecuzione & Varianti`, mins: 40, desc: `Sicurezza D.Lgs. 81/2008, subappalti, Art. 120, revisione prezzi Art. 60, penali, CCT e CEL.` },
+      { id: 6, title: `6. Compiti Operativi del DEC`, short: `Servizi e Forniture`, mins: 35, desc: `Avvio esecuzione, ordini di servizio, SLA, CAM, migliorie OEPV, contestazioni e conformità.` },
+      { id: 7, title: `7. Quadro Sinottico RUP vs DEC`, short: `Matrice Sinottica`, mins: 30, desc: `Matrice operativa filtrabile delle competenze per fase e ruolo, collaudi post-Correttivo.` },
+      { id: 8, title: `8. Contabilità, Pagamenti e Criticità`, short: `Impegni, RTI, DURC`, mins: 35, desc: `Anticipazione Art. 125, impegno affidamento diretto, fatture RTI e DURC congruità edilizia.` },
+      { id: 9, title: `9. Incentivi per Funzioni Tecniche`, short: `Art. 45 & Calcolatore`, mins: 35, desc: `Destinatari, All. I.10, riparto 80/20, tetti, contrattazione decentrata e calcolatore.` },
+      { id: 10, title: `10. Responsabilità Erariale 2026`, short: `Legge 1/2026 & Tutele`, mins: 35, desc: `Nuova colpa grave, scudo del visto, tetto 2x stipendio, prescrizione 5 anni e polizza.` },
+      { id: 11, title: `11. Autovalutazione Finale`, short: `Test 20 Quesiti`, mins: 35, desc: `Modulo interattivo con 20 domande a scelta multipla, spiegazione immediata e punteggio.` }
+    ];
+
+    const QUIZ_DATA = [
+      {
+        q: `Qual è la figura introdotta dall'art. 15 del D.Lgs. 36/2023 in sostituzione del precedente responsabile del procedimento?`,
+        opts: [
+          `Il Responsabile Unico del Progetto (RUP), responsabile dell'intero intervento dalla programmazione all'esecuzione`,
+          `Il Responsabile Amministrativo di Gara (RAG)`,
+          `Il Coordinatore della Centrale di Committenza`,
+          `Il Dirigente apicale unico degli appalti`
+        ],
+        ans: 0,
+        exp: `L'art. 15, c. 1 trasforma il RUP in Responsabile Unico del Progetto (o intervento), assicurando il completamento dell'intero intervento pubblico attraverso le quattro fasi.`
+      },
+      {
+        q: `In base al Correttivo D.Lgs. 209/2024, cosa accade se la stazione appaltante accerta una carenza in organico di personale con i requisiti per fare il RUP?`,
+        opts: [
+          `La procedura di gara è nulla e deve essere annullata`,
+          `Può nominare il RUP tra i dipendenti di altre amministrazioni pubbliche`,
+          `Deve affidare l'incarico di RUP obbligatoriamente a un libero professionista esterno`,
+          `Deve chiedere una deroga espressa all'ANAC entro 15 giorni`
+        ],
+        ans: 1,
+        exp: `L'art. 4 del D.Lgs. 209/2024 ha integrato l'art. 15, c. 2 consentendo espressamente di nominare il RUP tra i dipendenti di altre amministrazioni pubbliche in caso di accertata carenza interna.`
+      },
+      {
+        q: `Negli appalti di forniture, quando la nomina di un DEC distinto dal RUP è obbligatoria secondo All. I.2 e All. II.14 (Parere MIT 2627/2024 e ANAC)?`,
+        opts: [
+          `Solo sopra i 5.538.000 euro`,
+          `Mai, nelle forniture coincide sempre con il RUP`,
+          `Oltre i 500.000 euro, oltre la soglia comunitaria ex art. 8 c. 4 All. I.2, o per complessità/organizzazione ex lett. b)-e)`,
+          `Solo per gli affidamenti diretti inferiori a 40.000 euro`
+        ],
+        ans: 2,
+        exp: `Le ipotesi di cui all'art. 8 c. 4 All. I.2 (soglia UE, complessità, pluralità competenze, unità diversa) si cumulano in via alternativa con l'art. 32 c. 3 All. II.14 (>500.000 € per forniture).`
+      },
+      {
+        q: `Secondo il Parere MIT n. 2540/2024, è legittimo nominare un unico RUP annuale indistinto per tutti gli affidamenti sottosoglia di un settore?`,
+        opts: [
+          `Sì, se approvato dal Consiglio Comunale`,
+          `No: occorre nominare il RUP per ciascun intervento/procedimento (pur potendo nominare la stessa persona per più interventi)`,
+          `Sì, ma solo per importi inferiori a 5.000 euro`,
+          `Solo nelle Unioni di Comuni`
+        ],
+        ans: 1,
+        exp: `L'art. 15 richiede l'individuazione puntuale del RUP nel primo atto di avvio di ciascun intervento pubblico; negli enti medio-grandi è inoltre consigliabile ruotare le nomine.`
+      },
+      {
+        q: `Qual è la soglia di importo oltre la quale dal 1° gennaio 2025 è obbligatorio l'uso dei metodi di gestione informativa digitale (BIM) per nuove costruzioni (art. 43 post-Correttivo)?`,
+        opts: [
+          `Superiore a 500.000 euro`,
+          `Superiore a 1.000.000 euro`,
+          `Superiore a 2.000.000 euro (salvo soglia UE per beni culturali ex art. 10 c. 1 D.Lgs. 42/2004)`,
+          `Superiore a 10.000.000 euro`
+        ],
+        ans: 2,
+        exp: `Il Correttivo D.Lgs. 209/2024 ha elevato la soglia dell'obbligo BIM dal 1° gennaio 2025 a oltre 2 milioni di euro (escluse manutenzioni ordinarie/straordinarie di opere non nate in BIM).`
+      },
+      {
+        q: `Quale soglia consente l'affidamento diretto di servizi e forniture (inclusi i servizi di ingegneria e architettura) ai sensi dell'art. 50, c. 1, lett. b)?`,
+        opts: [
+          `Importo inferiore a 40.000 euro`,
+          `Importo inferiore a 140.000 euro`,
+          `Importo inferiore a 150.000 euro`,
+          `Importo inferiore a 221.000 euro`
+        ],
+        ans: 1,
+        exp: `L'art. 50 fissa il limite dell'affidamento diretto a < 140.000 € per servizi e forniture (inclusi SIA/progettazione) e < 150.000 € per i lavori.`
+      },
+      {
+        q: `Cosa ha precisato il Correttivo D.Lgs. 209/2024 sul principio di rotazione (art. 49, comma 4)?`,
+        opts: [
+          `Ha abolito completamente la rotazione sotto i 140.000 euro`,
+          `Consente il reinvito/affidamento all'uscente in casi motivati per struttura di mercato e assenza di alternative, previa verifica di accurata esecuzione e qualità della prestazione resa`,
+          `Consente il sorteggio automatico tra tutti gli operatori iscritti al MePA`,
+          `Obbliga sempre a invitare il contraente uscente`
+        ],
+        ans: 1,
+        exp: `Il comma 4 riformulato richiede motivazione su struttura di mercato, effettiva assenza di alternative, accurata esecuzione precedente e qualità della prestazione resa (resta libera la deroga < 5.000 €).`
+      },
+      {
+        q: `Quale novità ha introdotto l'art. 50, comma 2-bis (D.Lgs. 209/2024) per le procedure negoziate sottosoglia?`,
+        opts: [
+          `L'obbligo di pubblicazione del bando sulla Gazzetta Ufficiale UE`,
+          `L'obbligo per le stazioni appaltanti di pubblicare sul proprio sito l'avvio della consultazione`,
+          `Il ritorno al sorteggio libero senza motivazione`,
+          `L'eliminazione della determina a contrarre`
+        ],
+        ans: 1,
+        exp: `Il nuovo comma 2-bis impone di pubblicare sul proprio sito istituzionale l'avvio di una consultazione per le procedure negoziate di cui alle lett. c), d) ed e) del comma 1.`
+      },
+      {
+        q: `Come si applicano alle garanzie sottosoglia (art. 53) le riduzioni previste dall'art. 106 c. 8 (es. PMI, ISO 9001)?`,
+        opts: [
+          `Si applicano automaticamente fino al 50%`,
+          `Si applicano solo se l'importo supera 100.000 euro`,
+          `Non si applicano: il comma 4-bis esclude le riduzioni dell'art. 106 c. 8 e gli aumenti dell'art. 117 c. 2`,
+          `Si applicano in misura raddoppiata`
+        ],
+        ans: 2,
+        exp: `Il Correttivo ha aggiunto all'art. 53 il comma 4-bis escludendo espressamente sia le riduzioni (art. 106 c. 8) sia gli aumenti (art. 117 c. 2) per le garanzie provvisorie e definitive sottosoglia.`
+      },
+      {
+        q: `In base al nuovo art. 60 post-Correttivo, qual è la soglia e la percentuale di operatività della revisione prezzi nei lavori pubblici?`,
+        opts: [
+          `Variazione > 5%, opera all'80% sull'eccedenza`,
+          `Variazione > 3%, opera al 90% del valore eccedente il 3%`,
+          `Variazione > 10%, opera al 50% sull'intero importo`,
+          `Non esiste revisione prezzi nei lavori`
+        ],
+        ans: 1,
+        exp: `Per i lavori la revisione prezzi scatta oltre il 3% di variazione e copre il 90% della quota eccedente il 3%; per servizi e forniture resta il 5% con operatività all'80% dell'eccedenza.`
+      },
+      {
+        q: `Entro quanti giorni il RUP deve rilasciare il Certificato di Esecuzione dei Lavori (CEL) dalla richiesta dell'esecutore (All. I.2 art. 8 c. 1 lett. s-bis)?`,
+        opts: [
+          `Entro 7 giorni`,
+          `Entro 30 giorni`,
+          `Entro 60 giorni`,
+          `Entro 180 giorni`
+        ],
+        ans: 1,
+        exp: `L'Allegato I.2 aggiornato dal Correttivo stabilisce che il RUP rilascia il CEL entro trenta giorni dalla richiesta dell'esecutore.`
+      },
+      {
+        q: `Chi verifica durante l'esecuzione di un servizio complesso il rispetto dei CAM e delle migliorie offerte in sede OEPV?`,
+        opts: [
+          `Il Collegio dei Revisori dei Conti`,
+          `Il Direttore dell'Esecuzione del Contratto (DEC), sotto la supervisione del RUP`,
+          `L'Ufficio Protocollo dell'Ente`,
+          `Esclusivamente la Prefettura`
+        ],
+        ans: 1,
+        exp: `Il controllo operativo continuo sul campo di SLA, CAM, migliorie offerte e regolarità dell'esecuzione nei servizi e forniture spetta al DEC, che riferisce al RUP.`
+      },
+      {
+        q: `Come si calcola l'anticipazione del prezzo (art. 125) nei contratti di servizi e forniture ad esecuzione pluriennale?`,
+        opts: [
+          `Sul 20% dell'intero importo quadriennale o quinquennale in un'unica soluzione iniziale`,
+          `Sul valore delle prestazioni di ciascuna annualità contabile stabilita nel cronoprogramma`,
+          `Non è mai prevista anticipazione nei servizi pluriennali`,
+          `Sul 50% dell'importo a base d'asta`
+        ],
+        ans: 1,
+        exp: `L'art. 125 stabilisce che per servizi e forniture pluriennali l'anticipazione (20%, estendibile al 30%) è calcolata sul valore delle prestazioni di ciascuna annualità contabile.`
+      },
+      {
+        q: `Nell'affidamento diretto sottosoglia, quando si perfeziona l'obbligazione giuridica ai fini dell'impegno di spesa (chiarimento MIT su art. 17)?`,
+        opts: [
+          `Solo dopo la registrazione del contratto all'Agenzia delle Entrate`,
+          `Con l'adozione dell'atto (determina) di affidamento stesso; la lettera commerciale non ne condiziona l'efficacia contabile`,
+          `Al pagamento della prima fattura`,
+          `Dopo 35 giorni di stand still`
+        ],
+        ans: 1,
+        exp: `Il Supporto Giuridico MIT ha chiarito che nell'affidamento diretto l'obbligazione si perfeziona con l'atto di affidamento; la lettera commerciale successiva ha solo rilievo formale contrattuale.`
+      },
+      {
+        q: `Qual è la regola contabile-fiscale ordinaria per la fatturazione nei Raggruppamenti Temporanei di Imprese (RTI), richiamata anche dalla Ragioneria (2026)?`,
+        opts: [
+          `L'RTI apre una propria partita IVA autonoma distinta dalle imprese`,
+          `Ciascuna impresa (mandataria e mandanti) mantiene autonomia fiscale ed emette fattura pro quota per le prestazioni eseguite`,
+          `Fattura sempre e solo la mandante minoritaria`,
+          `Le fatture non vanno emesse in formato elettronico`
+        ],
+        ans: 1,
+        exp: `L'RTI non costituisce soggetto fiscale autonomo: ogni impresa raggruppata emette fattura per le prestazioni di propria competenza e subisce le relative verifiche di regolarità.`
+      },
+      {
+        q: `Quando va richiesto il DURC di congruità della manodopera edilizia tramite il portale Edilconnect e quali effetti ha la sua irregolarità?`,
+        opts: [
+          `Prima della pubblicazione del bando; invalida l'aggiudicazione`,
+          `In occasione dell'ultimo SAL prima del pagamento del saldo finale; l'esito negativo blocca il pagamento del saldo`,
+          `Solo per lavori di giardinaggio sotto i 5.000 euro`,
+          `Dopo 5 anni dal collaudo senza effetti sui pagamenti`
+        ],
+        ans: 1,
+        exp: `Il DURC di congruità verifica l'incidenza minima della manodopera all'ultimo SAL: in mancanza di regolarizzazione entro 15 giorni blocca il pagamento del saldo finale e incide sul DURC ordinario.`
+      },
+      {
+        q: `Quale aliquota degli incentivi tecnici (art. 45) è destinata direttamente al personale che svolge le attività dell'Allegato I.10 e qual è la quota per innovazione/formazione/assicurazioni?`,
+        opts: [
+          `50% al personale e 50% al bilancio generale`,
+          `80% direttamente al personale (senza confluire nel fondo) e 20% per beni/tecnologie, formazione e polizze obbligatorie`,
+          `100% al solo RUP`,
+          `70% ai dirigenti e 30% ai fornitori`
+        ],
+        ans: 1,
+        exp: `L'art. 45 ripartisce la somma (max 2% della base di affidamento) in 80% diretto al personale tecnico/amministrativo e 20% a tecnologia, formazione, tirocini e assicurazioni obbligatorie.`
+      },
+      {
+        q: `In base alla Legge 7 gennaio 2026, n. 1, qual è il tetto massimo risarcitorio in caso di condanna erariale per colpa grave (salvo dolo)?`,
+        opts: [
+          `Sempre l'intero danno erariale senza alcun limite`,
+          `Al massimo 2 volte il trattamento economico lordo annuo (o il 30% del danno accertato)`,
+          `Massimo 1.000 euro fissi`,
+          `Il doppio dell'importo dell'appalto`
+        ],
+        ans: 1,
+        exp: `La L. 1/2026 introduce un tetto risarcitorio garantista pari a 2 annualità lorde (o al 30% del danno), fermo il risarcimento integrale nei soli casi di dolo o illecito arricchimento.`
+      },
+      {
+        q: `Sempre per effetto della Legge 1/2026, cosa comporta l'ottenimento del visto preventivo di legittimità della Corte dei conti o il silenzio-assenso di 30 giorni sui pareri?`,
+        opts: [
+          `Raddoppia la responsabilità del RUP`,
+          `Esclude automaticamente la responsabilità per colpa grave (estesa anche agli atti richiamati e allegati presupposti)`,
+          `Sospende l'appalto per 2 anni`,
+          `Trasferisce il contratto al Prefetto`
+        ],
+        ans: 1,
+        exp: `Il superamento del controllo preventivo (o l'adeguamento a un parere contabile, incluso il silenzio-assenso a 30 giorni) funge da scudo erariale escludendo la colpa grave.`
+      },
+      {
+        q: `Qual è il termine ordinario di prescrizione dell'azione di responsabilità erariale introdotto dalla Legge 1/2026?`,
+        opts: [
+          `10 anni dalla scoperta del danno da parte della Procura`,
+          `5 anni rigidi dal verificarsi del fatto dannoso (salvo doloso occultamento attivo)`,
+          `2 anni dalla firma del contratto`,
+          `Imprescrittibile`
+        ],
+        ans: 1,
+        exp: `La riforma fissa la prescrizione a 5 anni dal fatto dannoso, indipendentemente dal momento della conoscenza del danno da parte dell'amministrazione o della Corte, salvo occultamento doloso.`
+      }
+    ];
+
+    const RAW_PROMPT_TEXT = `Genera un sito web interattivo completo, autorevole e approfondito dal titolo "competenze del RUP e del DEC", concepito come manuale operativo e guida di riferimento essenziale per i dipendenti e funzionari della Pubblica Amministrazione (in particolare dei Comuni italiani) ai sensi del D.Lgs. 36/2023, come modificato dal Correttivo D.Lgs. 209/2024, dalla Legge 1/2026 e dalle delibere ANAC e circolari della Ragioneria.
+
+Architettura e Requisiti di Contenuto:
+1. Home Page & Quadro Generale dei Principi (ciclo di vita, principi risultato/fiducia/accesso/buona fede, card navigazione rapida, metadati istituzionali Google Notebook su prompt di Ciro Spataro, 24 Novembre 2026, CC BY-SA).
+2. Requisiti, Competenze e Nomina di RUP e DEC (Art. 15/All. I.2; Art. 114/All. II.14; titoli, esperienza, incompatibilità, conflitto di interessi, soglia 500k e servizi complessi).
+3. Compiti Trasversali del RUP in Tutte le Fasi (programmazione triennale, verifica/validazione, conferenze di servizi, CIG/BDNCP/Orchestratore ANAC, trasparenza).
+4. Adempimenti nelle Procedure Sotto-Soglia e Sopra-Soglia (soglie UE, affidamento diretto, rotazione, negoziate/aperte, anomalie, esclusione, determina).
+5. Il Ruolo del RUP nella Fase Esecutiva (D.Lgs. 81/2008, subappalti/avvalimenti, varianti Art. 120, revisione prezzi Art. 60, sospensioni, penali, accordi bonari/CCT).
+6. I Compiti Operativi del DEC nei Contratti di Servizi e Forniture (avvio in contraddittorio, ordini di servizio, qualità/SLA, CAM/migliorie, subappaltatori, contestazioni/riserve).
+7. Quadro Sinottico e Interazione Operativa RUP vs DEC (tabella sinottica e matrici di responsabilità per ciascuna fase).
+8. Contabilità, Pagamenti e Criticità Procedurali (anticipazione Art. 125 annualità, impegno di spesa affidamento diretto vs gara, fatturazione RTI e autonomia fiscale mandanti, DURC di congruità Edilconnect).
+9. Incentivi per Funzioni Tecniche Art. 45 e All. I.10 (destinatari, attività incentivabili/escluse, riparto 80/20, contrattazione integrativa, esempi calcolo).
+10. Responsabilità Amministrativa, Erariale e Nuove Tutele 2026 (Legge 1/2026, nuova colpa grave, scudo visto preventivo, tetto 2x stipendio, prescrizione 5 anni, assicurazione).
+11. Autovalutazione Finale (20 domande a risposta multipla con spiegazione analitica, punteggio finale, livello e reset).
+
+Istruzioni Tecniche Operative:
+- Design System Material Design (Primary #3f51b5, Roboto & Roboto Mono, bordi 4px, ombre leggere) e Tailwind CSS.
+- Layout a 3 colonne su desktop (Header fisso con ricerca, toggle Dark/Light, barra avanzamento, tempo stimato >= 6h; Left Sidebar ad albero; Right Sidebar TOC sticky con Scrollspy e Torna su; Main Content 800-900px con Admonitions, details, tabs, schemi; pulsanti Letto/Da leggere e paginazione; Footer con dicitura "sito generato da Google Notebook su prompt di Ciro Spataro" e modale "prompt utilizzato").`;
+
+    let appState = {
+      currentChapter: 1,
+      readChapters: {},
+      theme: `light`,
+      quizAnswers: {}
+    };
+
+    function renderHomeCards() {
+      const container = document.getElementById('home-chapter-cards');
+      if (!container) return;
+      container.innerHTML = CHAPTER_META.slice(1).map(ch => {
+        const isDone = !!appState.readChapters[ch.id];
+        return `<button type="button" class="chapter-card" onclick="goToChapter(${ch.id})">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+              <span class="mono" style="font-size:0.72rem;font-weight:700;color:var(--primary);">${ch.mins} min</span>
+              <span class="mono" style="font-size:0.7rem;padding:0.12rem 0.4rem;border-radius:3px;background:${isDone ? 'var(--positive-bg)' : 'var(--surface-container)'};color:${isDone ? 'var(--positive)' : 'var(--on-surface-variant)'};">${isDone ? 'LETTO' : 'DA LEGGERE'}</span>
+            </div>
+            <div style="font-weight:700;font-size:0.95rem;color:var(--on-surface);margin-bottom:0.25rem;">${ch.title}</div>
+            <div style="font-size:0.83rem;color:var(--on-surface-variant);line-height:1.4;">${ch.desc}</div>
+          </div>
+          <div style="font-size:0.8rem;font-weight:700;color:var(--primary);display:flex;align-items:center;gap:0.25rem;">
+            <span>Apri capitolo</span>
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:15px;">arrow_forward</span>
+          </div>
+        </button>`;
+      }).join('');
+    }
+
+    function renderLeftNav() {
+      const nav = document.getElementById('left-nav-tree');
+      if (!nav) return;
+      let html = '';
+      CHAPTER_META.forEach(ch => {
+        const isActive = appState.currentChapter === ch.id;
+        const isDone = !!appState.readChapters[ch.id];
+        const article = document.getElementById(`ch-${ch.id}`);
+        const headings = article ? Array.from(article.querySelectorAll('h2.sec-title')) : [];
+        html += `<div style="margin-bottom:0.25rem;">
+          <button type="button" class="nav-chapter-btn ${isActive ? 'active' : ''}" onclick="goToChapter(${ch.id})">
+            <span>${ch.title}</span>
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size:16px;flex-shrink:0;color:${isDone ? 'var(--positive-border)' : 'var(--on-surface-variant)'};">${isDone ? 'check_circle' : 'chevron_right'}</span>
+          </button>`;
+        if (headings.length) {
+          html += `<div class="nav-sub-list ${isActive ? 'open' : ''}">`;
+          headings.forEach(h => {
+            html += `<button type="button" class="nav-sub-link" onclick="jumpToHeading(${ch.id}, '${h.id}')">${h.textContent}</button>`;
+          });
+          html += `</div>`;
+        }
+        html += `</div>`;
+      });
+      nav.innerHTML = html;
+    }
+
+    function renderRightToc() {
+      const toc = document.getElementById('right-toc-list');
+      const article = document.getElementById(`ch-${appState.currentChapter}`);
+      if (!toc || !article) return;
+      const headings = Array.from(article.querySelectorAll('h2.sec-title, h3.sub-title'));
+      if (!headings.length) {
+        toc.innerHTML = `<p style="font-size:0.8rem;color:var(--on-surface-variant);margin:0;">Nessuna sottosezione.</p>`;
+        return;
+      }
+      toc.innerHTML = headings.map((h, i) => {
+        const isH3 = h.tagName.toLowerCase() === 'h3';
+        return `<button type="button" class="toc-link ${isH3 ? 'h3' : ''} ${i === 0 ? 'active' : ''}" data-target="${h.id}" onclick="jumpToHeading(${appState.currentChapter}, '${h.id}')">${h.textContent}</button>`;
+      }).join('');
+    }
+
+    function updateProgressUI() {
+      const readCount = CHAPTER_META.filter(c => appState.readChapters[c.id]).length;
+      const pct = Math.round((readCount / CHAPTER_META.length) * 100);
+      const lbl = document.getElementById('progress-label');
+      const bar = document.getElementById('progress-bar');
+      if (lbl) lbl.textContent = `${pct}% letto (${readCount}/${CHAPTER_META.length})`;
+      if (bar) bar.style.width = `${pct}%`;
+
+      const isCurrentRead = !!appState.readChapters[appState.currentChapter];
+      const btnRead = document.getElementById('btn-mark-read');
+      const btnUnread = document.getElementById('btn-mark-unread');
+      if (btnRead) btnRead.className = `read-btn ${isCurrentRead ? 'active-read' : ''}`;
+      if (btnUnread) btnUnread.className = `read-btn ${!isCurrentRead ? 'active-unread' : ''}`;
+
+      const prevBtn = document.getElementById('btn-prev-chapter');
+      const nextBtn = document.getElementById('btn-next-chapter');
+      if (prevBtn) prevBtn.disabled = appState.currentChapter <= 1;
+      if (nextBtn) nextBtn.disabled = appState.currentChapter >= CHAPTER_META.length;
+    }
+
+    function goToChapter(num) {
+      if (num < 1 || num > CHAPTER_META.length) return;
+      appState.currentChapter = num;
+      document.querySelectorAll('.chapter-view').forEach(el => {
+        el.classList.toggle('active', Number(el.dataset.chapter) === num);
+      });
+      renderLeftNav();
+      renderRightToc();
+      renderHomeCards();
+      updateProgressUI();
+      closeMobileSidebar();
+      scrollToTop();
+      saveState();
+    }
+
+    function jumpToHeading(chId, headingId) {
+      if (appState.currentChapter !== chId) {
+        appState.currentChapter = chId;
+        document.querySelectorAll('.chapter-view').forEach(el => {
+          el.classList.toggle('active', Number(el.dataset.chapter) === chId);
+        });
+        renderLeftNav();
+        renderRightToc();
+        updateProgressUI();
+        saveState();
+      }
+      closeMobileSidebar();
+      const target = document.getElementById(headingId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        updateTocHighlight(headingId);
+      }
+    }
+
+    function updateTocHighlight(activeId) {
+      document.querySelectorAll('#right-toc-list .toc-link').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.target === activeId);
+      });
+    }
+
+    function setupScrollSpy() {
+      window.addEventListener('scroll', () => {
+        const article = document.getElementById(`ch-${appState.currentChapter}`);
+        if (!article) return;
+        const headings = Array.from(article.querySelectorAll('h2.sec-title, h3.sub-title'));
+        let currentId = headings.length ? headings[0].id : '';
+        for (const h of headings) {
+          const rect = h.getBoundingClientRect();
+          if (rect.top <= 140) currentId = h.id;
+        }
+        if (currentId) updateTocHighlight(currentId);
+      }, { passive: true });
+    }
+
+    function prevChapter() { goToChapter(appState.currentChapter - 1); }
+    function nextChapter() { goToChapter(appState.currentChapter + 1); }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    function setChapterRead(isRead) {
+      appState.readChapters[appState.currentChapter] = isRead;
+      renderLeftNav();
+      renderHomeCards();
+      updateProgressUI();
+      saveState();
+    }
+
+    function applyTheme(theme) {
+      appState.theme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      const icon = document.getElementById('theme-icon');
+      const txt = document.getElementById('theme-text');
+      if (icon) icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+      if (txt) txt.textContent = theme === 'dark' ? 'Chiaro' : 'Scuro';
+    }
+
+    function toggleTheme() {
+      applyTheme(appState.theme === 'dark' ? 'light' : 'dark');
+      saveState();
+    }
+
+    function toggleMobileSidebar() {
+      const sb = document.getElementById('left-sidebar');
+      if (sb) sb.classList.toggle('mobile-open');
+    }
+    function closeMobileSidebar() {
+      const sb = document.getElementById('left-sidebar');
+      if (sb) sb.classList.remove('mobile-open');
+    }
+
+    function handleSearch(query) {
+      const box = document.getElementById('search-results');
+      if (!box) return;
+      const q = (query || '').trim().toLowerCase();
+      if (q.length < 2) {
+        box.classList.remove('open');
+        box.innerHTML = '';
+        return;
+      }
+      const matches = [];
+      CHAPTER_META.forEach(ch => {
+        const art = document.getElementById(`ch-${ch.id}`);
+        if (!art) return;
+        const text = art.textContent || '';
+        const idx = text.toLowerCase().indexOf(q);
+        if (idx !== -1) {
+          const start = Math.max(0, idx - 35);
+          const snippet = text.slice(start, start + 110).replace(/\s+/g, ' ').trim();
+          matches.push({ id: ch.id, title: ch.title, snippet: `…${snippet}…` });
+        }
+      });
+      if (!matches.length) {
+        box.innerHTML = `<div style="padding:0.75rem;font-size:0.85rem;color:var(--on-surface-variant);">Nessun risultato per «${q.replace(/</g, '&lt;')}».</div>`;
+      } else {
+        box.innerHTML = matches.map(m => `<button type="button" onclick="selectSearchMatch(${m.id})" style="display:block;width:100%;text-align:left;padding:0.65rem 0.85rem;border:0;border-bottom:1px solid var(--outline-variant);background:transparent;color:var(--on-surface);cursor:pointer;">
+          <div style="font-weight:700;font-size:0.85rem;color:var(--primary);">${m.title}</div>
+          <div style="font-size:0.78rem;color:var(--on-surface-variant);margin-top:0.15rem;">${m.snippet.replace(/</g, '&lt;')}</div>
+        </button>`).join('');
+      }
+      box.classList.add('open');
+    }
+
+    function selectSearchMatch(chId) {
+      const box = document.getElementById('search-results');
+      const inp = document.getElementById('global-search');
+      if (box) box.classList.remove('open');
+      if (inp) inp.value = '';
+      goToChapter(chId);
+    }
+
+    function switchTab(btn, panelId) {
+      const bar = btn.parentElement;
+      if (!bar) return;
+      Array.from(bar.querySelectorAll('.tab-btn')).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      let sibling = bar.nextElementSibling;
+      while (sibling && sibling.classList.contains('tab-panel')) {
+        sibling.classList.toggle('active', sibling.id === panelId);
+        sibling = sibling.nextElementSibling;
+      }
+    }
+
+    function filterMatrix(cat, btn) {
+      const parent = btn.parentElement;
+      if (parent) {
+        Array.from(parent.querySelectorAll('button')).forEach(b => {
+          b.className = b === btn ? 'btn-primary' : 'btn-secondary';
+        });
+      }
+      const rows = document.querySelectorAll('#matrix-table tbody tr');
+      rows.forEach(r => {
+        r.style.display = (cat === 'all' || r.dataset.cat === cat) ? '' : 'none';
+      });
+    }
+
+    function runDecChecker() {
+      const tipo = (document.getElementById('chk-tipo') || {}).value || 'servizi';
+      const importo = Number((document.getElementById('chk-importo') || {}).value || 0);
+      const comp = (document.getElementById('chk-complessita') || {}).value || 'no';
+      const out = document.getElementById('chk-output');
+      if (!out) return;
+
+      let rupReq = '';
+      let decHtml = '';
+      if (tipo === 'lavori') {
+        if (importo >= 5538000) rupReq = `Tecnico abilitato con almeno <strong>5 anni</strong> di esperienza specifica.`;
+        else if (importo >= 1000000) rupReq = `Tecnico abilitato con almeno <strong>3 anni</strong> di esperienza (5 anni se privo di abilitazione).`;
+        else rupReq = `Tecnico abilitato con almeno <strong>1 anno</strong> di esperienza (5 anni se senza abilitazione).`;
+        decHtml = `Per i lavori si nomina il <strong>Direttore dei Lavori (DL)</strong>. Il RUP può coincidere con progettista/DL solo sotto soglia UE e per lavori non complessi (Art. 4 c. 3 All. I.2).`;
+        out.className = 'admonition';
+      } else {
+        const sogliaUE = 221000;
+        rupReq = importo >= sogliaUE
+          ? `Titolo adeguato con almeno <strong>3 anni</strong> di esperienza specifica (possibile laurea magistrale per dispositivi medici, antincendio, sistemi IT).`
+          : `Titolo di studio adeguato con almeno <strong>1 anno</strong> di esperienza (attestata anche dall'anzianità di servizio).`;
+
+        const over500k = importo > 500000;
+        const overUE = importo >= sogliaUE;
+        const isComplex = comp === 'si';
+        if (over500k || overUE || isComplex) {
+          out.className = 'admonition warning';
+          const reasons = [];
+          if (over500k) reasons.push(`importo &gt; 500.000 € (art. 32 All. II.14)`);
+          if (!over500k && overUE) reasons.push(`importo ≥ soglia UE (art. 8 c. 4 lett. a All. I.2)`);
+          if (isComplex) reasons.push(`complessità / settore particolare / unità diversa (art. 8 c. 4 lett. b–e e art. 32 c. 2)`);
+          decHtml = `<strong>OBBLIGO DI DEC DISTINTO DAL RUP</strong> (${reasons.join('; ')}). Sussistono pertanto i presupposti per l'incentivabilità tecnica ex Art. 45 (Parere MIT 2721/2024).`;
+        } else {
+          out.className = 'admonition tip';
+          decHtml = `<strong>COINCIDENZA ORDINARIA:</strong> Le funzioni di DEC sono svolte direttamente dal RUP (Art. 114 c. 7). Senza nomina obbligatoria del DEC distinto, non maturano incentivi tecnici ex Art. 45 per servizi/forniture.`;
+        }
+      }
+      out.innerHTML = `<div class="admonition-title">Esito Verifica Normativa</div>
+        <p style="margin:0 0 0.35rem 0;"><strong>Requisito RUP:</strong> ${rupReq}</p>
+        <p style="margin:0;"><strong>Figura Esecutiva (DEC/DL):</strong> ${decHtml}</p>`;
+    }
+
+    function calcIncentivi() {
+      const tipo = (document.getElementById('inc-tipo') || {}).value || 'lavori';
+      const base = Math.max(0, Number((document.getElementById('inc-base') || {}).value || 0));
+      const aliq = Math.min(2, Math.max(0, Number((document.getElementById('inc-aliquota') || {}).value || 2)));
+      const cucPct = Math.min(25, Math.max(0, Number((document.getElementById('inc-cuc') || {}).value || 0)));
+      const out = document.getElementById('inc-output');
+      if (!out) return;
+
+      const fmt = v => v.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+      const fondoTot = base * (aliq / 100);
+      const quotaCuc = fondoTot * (cucPct / 100);
+      const residuoEnte = fondoTot - quotaCuc;
+      const quota80 = residuoEnte * 0.80;
+      const quota20 = residuoEnte * 0.20;
+
+      const riparto = tipo === 'lavori'
+        ? [
+            [`RUP e collaboratori gestione intervento`, 0.25],
+            [`Programmazione della spesa`, 0.05],
+            [`Verifica preventiva progetto &amp; sicurezza (CSP)`, 0.15],
+            [`Direzione Lavori, contabilità e CSE`, 0.40],
+            [`Collaudo tecnico-amm. / CRE / Collaudo statico`, 0.15]
+          ]
+        : [
+            [`RUP e collaboratori tecnico-amministrativi`, 0.30],
+            [`Programmazione e predisposizione documenti tecnici`, 0.10],
+            [`Direzione dell'Esecuzione (DEC) e assistenti`, 0.45],
+            [`Verifica di conformità / Regolare esecuzione`, 0.15]
+          ];
+
+      out.innerHTML = `<div class="table-wrap" style="margin-bottom:0.75rem;">
+        <table class="data-table">
+          <thead><tr><th>Voce Contabile Art. 45</th><th>Aliquota</th><th>Importo Lordo Amm.ne (incl. oneri &amp; IRAP)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Stanziamento complessivo Quadro Economico</strong></td><td class="mono">${aliq.toFixed(1)}%</td><td class="mono"><strong>${fmt(fondoTot)}</strong></td></tr>
+            <tr><td>Quota destinata a Centrale di Committenza (CUC)</td><td class="mono">${cucPct}%</td><td class="mono">${fmt(quotaCuc)}</td></tr>
+            <tr><td><strong>Quota 80% al personale interno (All. I.10)</strong></td><td class="mono">80% netta</td><td class="mono" style="color:var(--positive);"><strong>${fmt(quota80)}</strong></td></tr>
+            <tr><td>Quota 20% fondo innovazione, BIM, formazione e polizze</td><td class="mono">20% netta</td><td class="mono">${fmt(quota20)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:0.84rem;color:var(--on-surface-variant);margin-bottom:0.4rem;"><strong>Esempio ripartizione indicativa dell'80% (${fmt(quota80)}) da contratto decentrato:</strong></div>
+      <div class="table-wrap" style="margin:0;">
+        <table class="data-table">
+          <thead><tr><th>Attività Tassativa Allegato I.10</th><th>Peso Esempio</th><th>Importo Stimato</th></tr></thead>
+          <tbody>${riparto.map(r => `<tr><td>${r[0]}</td><td class="mono">${Math.round(r[1]*100)}%</td><td class="mono">${fmt(quota80 * r[1])}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>`;
+    }
+
+    function renderQuiz() {
+      const box = document.getElementById('quiz-container');
+      if (!box) return;
+      box.innerHTML = QUIZ_DATA.map((item, idx) => {
+        const chosen = appState.quizAnswers[idx];
+        const answered = chosen !== undefined;
+        return `<div class="quiz-card">
+          <div style="font-weight:700;margin-bottom:0.45rem;"><span class="mono" style="color:var(--primary);">D${idx + 1}.</span> ${item.q}</div>
+          <div>${item.opts.map((opt, oIdx) => {
+            let cls = 'quiz-opt';
+            if (answered) {
+              if (oIdx === item.ans) cls += ' correct';
+              else if (oIdx === chosen) cls += ' wrong';
+            }
+            return `<button type="button" class="${cls}" ${answered ? 'disabled' : ''} onclick="answerQuiz(${idx}, ${oIdx})">
+              <span class="mono" style="font-weight:700;">${String.fromCharCode(65 + oIdx)})</span>
+              <span>${opt}</span>
+            </button>`;
+          }).join('')}</div>
+          ${answered ? `<div class="admonition ${chosen === item.ans ? 'tip' : 'danger'}" style="margin-top:0.65rem;margin-bottom:0;padding:0.65rem 0.9rem;">
+            <div class="admonition-title" style="font-size:0.8rem;">${chosen === item.ans ? 'Risposta Esatta' : 'Risposta Errata — Risposta corretta: ' + String.fromCharCode(65 + item.ans)}</div>
+            <p style="margin:0;font-size:0.86rem;">${item.exp}</p>
+          </div>` : ''}
+        </div>`;
+      }).join('');
+      updateQuizSummary();
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      if (appState.quizAnswers[qIdx] !== undefined) return;
+      appState.quizAnswers[qIdx] = oIdx;
+      renderQuiz();
+      saveState();
+    }
+
+    function updateQuizSummary() {
+      const total = QUIZ_DATA.length;
+      let answered = 0;
+      let score = 0;
+      QUIZ_DATA.forEach((item, i) => {
+        if (appState.quizAnswers[i] !== undefined) {
+          answered++;
+          if (appState.quizAnswers[i] === item.ans) score++;
+        }
+      });
+      const sumEl = document.getElementById('quiz-summary');
+      const lvlEl = document.getElementById('quiz-level');
+      if (sumEl) sumEl.textContent = `Risposte date: ${answered} / ${total} • Punteggio: ${score} / ${total} (${Math.round((score/total)*100)}%)`;
+      if (lvlEl) {
+        if (answered < total) {
+          lvlEl.textContent = `Mancano ${total - answered} quesiti per completare la valutazione.`;
+        } else if (score >= 18) {
+          lvlEl.textContent = `Livello Esperto (Eccellente): piena padronanza normativa e contabile di RUP e DEC.`;
+        } else if (score >= 14) {
+          lvlEl.textContent = `Livello Avanzato (Idoneo): ottima preparazione operativa; rivedi solo i dettagli evidenziati.`;
+        } else if (score >= 10) {
+          lvlEl.textContent = `Livello Base: conoscenze essenziali acquisite; si consiglia il ripasso dei capitoli 4, 8 e 10.`;
+        } else {
+          lvlEl.textContent = `Livello Iniziale: necessario un riesame sistematico del manuale prima di gestire procedure complesse.`;
+        }
+      }
+    }
+
+    function resetQuiz(btn) {
+      if (btn && btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Conferma Reset Test';
+        setTimeout(() => {
+          if (btn.dataset.armed === 'true') {
+            btn.dataset.armed = 'false';
+            btn.textContent = 'Ripristina Test';
+          }
+        }, 4000);
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = 'false';
+        btn.textContent = 'Ripristina Test';
+      }
+      appState.quizAnswers = {};
+      renderQuiz();
+      saveState();
+    }
+
+    function exportQuizReport() {
+      let score = 0;
+      let lines = [`REPORT AUTOVALUTAZIONE RUP E DEC (D.Lgs. 36/2023 + Correttivo 209/2024 + L. 1/2026)`, `====================================================================`];
+      QUIZ_DATA.forEach((item, i) => {
+        const ch = appState.quizAnswers[i];
+        const ok = ch === item.ans;
+        if (ok) score++;
+        lines.push(`D${i+1}: ${ok ? '[ESATTA]' : ch === undefined ? '[NON DATA]' : '[ERRATA]'} ${item.q}`);
+      });
+      lines.push(`====================================================================`);
+      lines.push(`Punteggio finale: ${score} / ${QUIZ_DATA.length}`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: lines.join('\n'),
+          contentType: 'text/plain',
+          encoding: 'UTF-8',
+          filename: 'autovalutazione-rup-dec.txt'
+        });
+      }
+    }
+
+    function openPromptModal() {
+      const m = document.getElementById('prompt-modal');
+      const t = document.getElementById('prompt-modal-text');
+      if (t) t.innerHTML = `<pre style="white-space:pre-wrap;font-family:var(--font-body);margin:0;">${RAW_PROMPT_TEXT.replace(/</g, '&lt;')}</pre>`;
+      if (m) m.classList.add('open');
+    }
+    function closePromptModal() {
+      const m = document.getElementById('prompt-modal');
+      if (m) m.classList.remove('open');
+    }
+    function handleModalBackdrop(e) {
+      if (e.target && e.target.id === 'prompt-modal') closePromptModal();
+    }
+
+    async function saveState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        // Ignora errori transitori in salvataggio
+      }
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            appState = Object.assign(appState, saved);
+          }
+        }
+      } catch (err) {
+        // Fallback stato iniziale
+      }
+      applyTheme(appState.theme || 'light');
+      goToChapter(appState.currentChapter || 1);
+      runDecChecker();
+      calcIncentivi();
+      renderQuiz();
+      setupScrollSpy();
+      document.addEventListener('click', e => {
+        const sb = document.querySelector('.search-box');
+        const dd = document.getElementById('search-results');
+        if (sb && dd && !sb.contains(e.target)) dd.classList.remove('open');
+      });
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
